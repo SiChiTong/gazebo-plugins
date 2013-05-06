@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<sdf version="1.3">
+  <world name="FirstWorld">
+
+    <!-- Ground Plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <plugin name="world" filename="libworld.so"/>
+  </world>
+</sdf>

@@ -1,0 +1,1 @@
+/usr/lib64/ccache/c++  -fPIC    -shared -Wl,-soname,libhello_world.so -o libhello_world.so CMakeFiles/hello_world.dir/world.cc.o  -L/usr/local/lib  -L/usr/local/lib/gazebo-1.5/plugins 
