@@ -7,4 +7,5 @@ include_directories(${GAZEBO_INCLUDE_DIRS})
 link_directories(${GAZEBO_LIBRARY_DIRS})
 
 add_library(modelControl SHARED modelControl.cc)
+
 target_link_libraries(modelControl ${GAZEBO_libraries})
