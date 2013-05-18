@@ -29,7 +29,8 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   this->node->Init();
 
   printf("Try suscribing \n");
-  this->headerSub = this->node->Subscribe(std::string("~/RobotinoSim/Message/"), &ModelControl::OnHeaderMsg, this);
+  this->stringSub = this->node->Subscribe(std::string("~/RobotinoSim/String/"), &ModelControl::OnStringMsg, this);
+  this->motorMoveSub = this->node->Subscribe(std::string("~/RobotinoSim/MotorMove/"), &ModelControl::OnMotorMoveMsg, this);
 
 
   printf("ModelControl-Plugin sucessfully loaded \n");
@@ -47,9 +48,15 @@ void ModelControl::Reset()
 {
 }
 
-void ModelControl::OnHeaderMsg(ConstHeaderPtr &msg)
+void ModelControl::OnStringMsg(ConstHeaderPtr &msg)
 {
-  printf("Got Header Msg!!! ");
+  printf("Got String Msg!!! ");
   printf(msg->str_id().c_str());
+  printf("\n");
+}
+
+void ModelControl::OnMotorMoveMsg(ConstHeaderPtr &msg)
+{
+  printf("Got MotorMove Msg!!! ");
   printf("\n");
 }
