@@ -4,6 +4,7 @@
 #include <common/common.hh>
 #include <stdio.h>
 #include <transport/transport.hh>
+#include <math.h>
 #include "modelControl.hh"
 
 using namespace gazebo;
@@ -39,9 +40,6 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
 // Called by the world update start event
 void ModelControl::OnUpdate(const common::UpdateInfo & /*_info*/)
 {
-  // Apply a small linear velocity to the model.
-  this->model->SetLinearVel(math::Vector3(.1, 0, 0));
-  this->model->SetAngularVel(math::Vector3(0, 0, 0.1));
 }
 
 void ModelControl::Reset()
@@ -55,8 +53,20 @@ void ModelControl::OnStringMsg(ConstHeaderPtr &msg)
   printf("\n");
 }
 
-void ModelControl::OnMotorMoveMsg(ConstHeaderPtr &msg)
+void ModelControl::OnMotorMoveMsg(ConstVector3dPtr &msg)
 {
-  printf("Got MotorMove Msg!!! ");
-  printf("\n");
+  printf("Got MotorMove Msg!!! %f %f %f\n", msg->x(), msg->y(), msg->z());
+  //Transform relative motion into ablosulte motion
+  float x, y, omega;
+  omega = msg->z();
+  float yaw = this->model->GetWorldPose().rot.GetAsEuler().z;
+  //foward part
+  x = cos(yaw) * msg->x();
+  y = sin(yaw) * msg->x();
+  //sideways part
+  x += cos(yaw + 3.1415926f / 2) * msg->y();
+  y += sin(yaw + 3.1415926f / 2) * msg->y();
+  // Apply velocity to the model.
+  this->model->SetLinearVel(math::Vector3(x * 10, y * 10, 0));
+  this->model->SetAngularVel(math::Vector3(0, 0, omega));
 }
