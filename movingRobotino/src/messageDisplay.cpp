@@ -13,6 +13,9 @@ MessageDisplay::MessageDisplay(physics::ModelPtr model, transport::NodePtr node)
  : SimDevice(model, node)
 {
 }
+MessageDisplay::~MessageDisplay()
+{
+}
 
 void MessageDisplay::init()
 {

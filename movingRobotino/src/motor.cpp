@@ -13,6 +13,9 @@ Motor::Motor(physics::ModelPtr model, transport::NodePtr node)
  : SimDevice(model, node)
 {
 }
+Motor::~Motor()
+{
+}
 
 void Motor::init()
 {

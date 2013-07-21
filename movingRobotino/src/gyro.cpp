@@ -13,6 +13,9 @@ Gyro::Gyro(physics::ModelPtr model, transport::NodePtr node)
  : SimDevice(model, node)
 {
 }
+Gyro::~Gyro()
+{
+}
 
 void Gyro::init()
 {

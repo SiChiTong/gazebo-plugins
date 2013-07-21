@@ -17,6 +17,8 @@ namespace gazebo
 
     //Constructor
     Motor(physics::ModelPtr, transport::NodePtr);
+    //Destructor
+    ~Motor();
   
     virtual void init();
     virtual void createPublishers();

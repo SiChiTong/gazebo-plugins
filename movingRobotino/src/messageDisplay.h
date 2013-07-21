@@ -17,7 +17,9 @@ namespace gazebo
 
     //Constructor
     MessageDisplay(physics::ModelPtr, transport::NodePtr);
-  
+    //Destructor
+    ~MessageDisplay();
+
     virtual void init();
     virtual void createPublishers();
     virtual void createSubscribers();

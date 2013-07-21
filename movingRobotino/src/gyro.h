@@ -17,6 +17,8 @@ namespace gazebo
 
     //Constructor
     Gyro(physics::ModelPtr, transport::NodePtr);
+    //Destructor
+    ~Gyro();
   
     virtual void init();
     virtual void createPublishers();

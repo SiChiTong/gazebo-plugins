@@ -17,3 +17,7 @@ SimDevice::SimDevice(physics::ModelPtr model, transport::NodePtr node)
   //communication Node
   this->node = node;
 }
+
+SimDevice::~SimDevice()
+{
+}

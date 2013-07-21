@@ -14,17 +14,25 @@
 
 using namespace gazebo;
 
-// Register this plugin with the simulator
+// Register this plugin to make it available in the simulator
 GZ_REGISTER_MODEL_PLUGIN(ModelControl)
 
 ModelControl::ModelControl()
 {
-  //printf("Constructor ModelControl \n");
+}
+
+ModelControl::~ModelControl()
+{
+  printf("Destructing ModelControl Plugin!\n");
+  //Destruct all simulated devices
+  for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
+  {
+    delete *it;
+  }
 }
 
 void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/) 
 {
-  //printf("Loading ModelControl \n");
   // Store the pointer to the model
   this->model = _parent;
 
@@ -36,7 +44,7 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   this->node = transport::NodePtr(new transport::Node());
   this->node->Init();
   
-  //creating devices
+  //creating simulated devices
   devices_list.push_back((SimDevice*) new MessageDisplay(model, node));
   devices_list.push_back((SimDevice*) new Gyro(model, node));
   devices_list.push_back((SimDevice*) new Motor(model, node));
@@ -48,6 +56,7 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
     (*it)->createPublishers();
   }
 
+  //suscribe messages of devices
   for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
   {
     (*it)->createSubscribers();

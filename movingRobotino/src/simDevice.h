@@ -17,6 +17,8 @@ namespace gazebo
   public:
     //Constructor
     SimDevice(physics::ModelPtr model, transport::NodePtr node);
+    //Destructor
+    virtual ~SimDevice();
     //common functions
     virtual void init() = 0;
     virtual void createPublishers() = 0;

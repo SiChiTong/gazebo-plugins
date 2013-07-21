@@ -15,6 +15,9 @@ namespace gazebo
     //Constructor
     ModelControl();
 
+    //Destructor
+    ~ModelControl();
+
     //Overridden ModelPlugin-Functions
     virtual void Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/);
     virtual void OnUpdate(const common::UpdateInfo &);
