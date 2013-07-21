@@ -4,7 +4,7 @@
 #include <common/common.hh>
 #include <stdio.h>
 #include <transport/transport.hh>
-#include "device.h"
+#include "simDevice.h"
 
 namespace gazebo
 {
@@ -18,7 +18,7 @@ namespace gazebo
     //Constructor
     MessageDisplay(physics::ModelPtr, transport::NodePtr);
   
-    virtual void initialize();
+    virtual void init();
     virtual void createPublishers();
     virtual void createSubscribers();
     virtual void update();

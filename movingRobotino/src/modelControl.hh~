@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <transport/transport.hh>
 #include <list>
-#include "simDevice.h"
+#include "device.h"
 
 namespace gazebo
 {   

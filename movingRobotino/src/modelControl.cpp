@@ -6,7 +6,7 @@
 #include <transport/transport.hh>
 #include <math.h>
 #include "modelControl.h"
-#include "device.h"
+#include "simDevice.h"
 #include "messageDisplay.h"
 
 using namespace gazebo;
@@ -16,10 +16,12 @@ GZ_REGISTER_MODEL_PLUGIN(ModelControl)
 
 ModelControl::ModelControl()
 {
+  //printf("Constructor ModelControl \n");
 }
 
 void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/) 
 {
+  //printf("Loading ModelControl \n");
   // Store the pointer to the model
   this->model = _parent;
 
@@ -42,7 +44,6 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   }
   printf("Try Publishing \n");
   this->gyroPub = this->node->Advertise<msgs::Vector3d>("~/RobotinoSim/Gyro/");
-
   for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
   {
     (*it)->createSubscribers();

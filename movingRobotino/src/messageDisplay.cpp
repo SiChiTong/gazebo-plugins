@@ -4,6 +4,7 @@
 #include <common/common.hh>
 #include <stdio.h>
 #include <transport/transport.hh>
+#include "simDevice.h"
 #include "messageDisplay.h"
 
 using namespace gazebo;
@@ -13,7 +14,7 @@ MessageDisplay::MessageDisplay(physics::ModelPtr model, transport::NodePtr node)
 {
 }
 
-void MessageDisplay::initialize()
+void MessageDisplay::init()
 {
   printf("Initialize MessageDisplay Device \n");
 }
