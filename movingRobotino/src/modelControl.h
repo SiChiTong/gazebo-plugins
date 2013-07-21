@@ -24,12 +24,6 @@ namespace gazebo
 
     //simulated devices
     std::list<SimDevice*> devices_list;
-    
-    //Functions for recieving Messages (registerd via suscribers)
-    void OnMotorMoveMsg(ConstVector3dPtr &msg);
-
-    //Functions for sending ionformation to fawkes:
-    void sendGyro();
 
     // Pointer to the model
     physics::ModelPtr model;
@@ -37,14 +31,5 @@ namespace gazebo
     event::ConnectionPtr updateConnection;
     //Node for communication
     transport::NodePtr node;
-    //Suscriber for MotorMove Interfaces from Fawkes
-    transport::SubscriberPtr motorMoveSub;
-    //Publisher for GyroAngle
-    transport::PublisherPtr gyroPub;
-    
-
-    //current movement commands:
-    float vx, vy, vomega;
-
   };
 }
