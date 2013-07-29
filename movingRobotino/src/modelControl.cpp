@@ -10,6 +10,7 @@
 #include "messageDisplay.h"
 #include "gyro.h"
 #include "motor.h"
+#include "gps.h"
 
 
 using namespace gazebo;
@@ -48,6 +49,7 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   devices_list.push_back((SimDevice*) new MessageDisplay(model, node));
   devices_list.push_back((SimDevice*) new Gyro(model, node));
   devices_list.push_back((SimDevice*) new Motor(model, node));
+  devices_list.push_back((SimDevice*) new Gps(model, node));
   
   //initialize and publish messages of devices (before subscribing to avoid deadlocks)
   for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)

@@ -9,16 +9,16 @@
 namespace gazebo
 {
 /*
-   This class simulates a gyro sensor
+   This class provides ground-truth information about the robots position and orientation
  */
-  class Gyro: public SimDevice
+  class Gps: public SimDevice
   {
   public:
 
     //Constructor
-    Gyro(physics::ModelPtr, transport::NodePtr);
+    Gps(physics::ModelPtr, transport::NodePtr);
     //Destructor
-    ~Gyro();
+    ~Gps();
   
     virtual void init();
     virtual void createPublishers();
@@ -28,9 +28,9 @@ namespace gazebo
   private:
 
     //Functions for sending ionformation to fawkes:
-    void sendGyro();
+    void sendPosition();
 
     //Publisher for GyroAngle
-    transport::PublisherPtr gyroPub;  
+    transport::PublisherPtr gpsPub;  
   };
 }
