@@ -31,6 +31,9 @@ namespace gazebo
     void sendPosition();
 
     //Publisher for GyroAngle
-    transport::PublisherPtr gpsPub;  
+    transport::PublisherPtr gpsPub;
+
+    //Helper Variables
+    float x, y, ori;
   };
 }
