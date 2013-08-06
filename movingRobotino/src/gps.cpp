@@ -90,8 +90,6 @@ void Gps::sendPosition()
       posMsg.set_y(y);
       posMsg.set_z(ori);
 
-      printf("%f, %f, %f\n", x, y, ori);
-
       //send
       gpsPub->Publish(posMsg);
     }
