@@ -24,6 +24,7 @@
 #include <common/common.hh>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include <transport/transport.hh>
 #include "simDevice.h"
 #include "laserSensor.h"
@@ -49,7 +50,7 @@ void LaserSensor::init()
 
 void LaserSensor::createPublishers()
 {
-  this->laserPub = this->node->Advertise<msgs::Vector3d>("~/RobotinoSim/LaserSensor/");
+  this->laserPub = this->node->Advertise<msgs::LaserScan>("~/RobotinoSim/LaserSensor/");
 }
 
 void LaserSensor::createSubscribers()
@@ -58,9 +59,47 @@ void LaserSensor::createSubscribers()
 
 void LaserSensor::update()
 {
+  //sending the laser scans happens in OnNewLaserScans()
 }
 
 void LaserSensor::OnNewLaserScans()
 {
-  printf("Got Laser Data :D\n");
+  if(laserPub->HasConnections())
+  {
+    //Get relevant data
+    int numRays = parentSensor->GetRangeCount();
+    float angleMin = parentSensor->GetAngleMin().Radian();
+    float angleMax = parentSensor->GetAngleMax().Radian();
+    float angleStep = parentSensor->GetAngleResolution();
+    float rangeMin = parentSensor->GetRangeMin();
+    float rangeMax = parentSensor->GetRangeMax();
+    
+
+    //create Protobuf message
+    msgs::LaserScan laserMsg;
+    laserMsg.set_frame("/base_laser");
+    laserMsg.set_angle_min(angleMin);
+    laserMsg.set_angle_max(angleMax);
+    laserMsg.set_angle_step(angleStep);
+    laserMsg.set_range_min(rangeMin);
+    laserMsg.set_range_max(rangeMax);
+    for(int i = 0; i < numRays; i++)
+    {
+    
+      laserMsg.add_ranges(parentSensor->GetRange(i));
+      //laserMsg.add_intensities(-1);//I think I don't need the intensity
+      //printf("Ray number %d range %f\n", i, parentSensor->GetRange(i));
+    }
+    //dummy for world pose
+    laserMsg.mutable_world_pose()->mutable_position()->set_x(0);
+    laserMsg.mutable_world_pose()->mutable_position()->set_y(0);
+    laserMsg.mutable_world_pose()->mutable_position()->set_z(0);
+    laserMsg.mutable_world_pose()->mutable_orientation()->set_x(0);
+    laserMsg.mutable_world_pose()->mutable_orientation()->set_y(0);
+    laserMsg.mutable_world_pose()->mutable_orientation()->set_z(0);
+    laserMsg.mutable_world_pose()->mutable_orientation()->set_w(0);
+ 
+    //send message
+    laserPub->Publish(laserMsg);
+    }
 }
