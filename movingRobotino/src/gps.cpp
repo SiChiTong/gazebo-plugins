@@ -47,7 +47,7 @@ void Gps::init()
 
 void Gps::createPublishers()
 {
-  this->gpsPub = this->node->Advertise<msgs::Vector3d>("~/RobotinoSim/Gps/");
+  this->gpsPub = this->node->Advertise<msgs::Pose>("~/RobotinoSim/Gps/");
 }
 
 void Gps::createSubscribers()
@@ -69,17 +69,15 @@ void Gps::sendPosition()
 {
   if(gpsPub->HasConnections())
   {
-    //Read position and orientation from simulation
-    float x = this->model->GetWorldPose().pos.x;
-    float y = this->model->GetWorldPose().pos.y;
-    float ori = this->model->GetWorldPose().rot.GetAsEuler().z;
-
     //build message
-    msgs::Vector3d posMsg;
-    //x,y,ori
-    posMsg.set_x(x);
-    posMsg.set_y(y);
-    posMsg.set_z(ori);
+    msgs::Pose posMsg;
+    posMsg.mutable_position()->set_x(this->model->GetWorldPose().pos.x);
+    posMsg.mutable_position()->set_y(this->model->GetWorldPose().pos.y);
+    posMsg.mutable_position()->set_z(this->model->GetWorldPose().pos.z);
+    posMsg.mutable_orientation()->set_x(this->model->GetWorldPose().rot.GetAsEuler().x);
+    posMsg.mutable_orientation()->set_y(this->model->GetWorldPose().rot.GetAsEuler().y);
+    posMsg.mutable_orientation()->set_z(this->model->GetWorldPose().rot.GetAsEuler().z);
+    posMsg.mutable_orientation()->set_w(0);
 
     //send
     gpsPub->Publish(posMsg);
