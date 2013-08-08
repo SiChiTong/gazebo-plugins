@@ -25,12 +25,17 @@
 #include <stdio.h>
 #include <transport/transport.hh>
 #include <math.h>
+#include <sensors/sensors.hh>
+#include <sensors/SensorTypes.hh>
+#include <sensors/RaySensor.hh>
+
 #include "modelControl.h"
 #include "simDevice.h"
 #include "messageDisplay.h"
 #include "gyro.h"
 #include "motor.h"
 #include "gps.h"
+#include "laserSensor.h"
 
 
 using namespace gazebo;
@@ -70,7 +75,8 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   devices_list.push_back((SimDevice*) new Gyro(model, node));
   devices_list.push_back((SimDevice*) new Motor(model, node));
   devices_list.push_back((SimDevice*) new Gps(model, node));
-  
+  devices_list.push_back((SimDevice*) new LaserSensor(model, node, sensors::get_sensor("laser")));
+
   //initialize and publish messages of devices (before subscribing to avoid deadlocks)
   for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
   {
