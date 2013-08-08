@@ -54,6 +54,6 @@ namespace gazebo
     transport::PublisherPtr gpsPub;
 
     //Helper Variables
-    float x, y, ori;
+    double last_sent_time_;
   };
 }
