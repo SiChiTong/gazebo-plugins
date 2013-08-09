@@ -41,20 +41,20 @@ namespace gazebo
     ~Motor();
   
     virtual void init();
-    virtual void createPublishers();
-    virtual void createSubscribers();
+    virtual void create_publishers();
+    virtual void create_subscribers();
     virtual void update();
 
   private:
         
     //Functions for recieving Messages (registerd via suscribers)
-    void OnMotorMoveMsg(ConstVector3dPtr &msg);
+    void on_motor_move_msg(ConstVector3dPtr &msg);
 
     //Suscriber for MotorMove Interfaces from Fawkes
-    transport::SubscriberPtr motorMoveSub;
+    transport::SubscriberPtr motor_move_sub_;
 
 
     //current movement commands:
-    float vx, vy, vomega;  
+    float vx_, vy_, vomega_;  
   };
 }

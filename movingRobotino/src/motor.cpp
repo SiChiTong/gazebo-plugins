@@ -41,18 +41,18 @@ void Motor::init()
 {
   printf("Initialize Motor\n");
   //initialize movement commands:
-  vx = 0.0;
-  vy = 0.0;
-  vomega = 0.0;
+  vx_ = 0.0;
+  vy_ = 0.0;
+  vomega_ = 0.0;
 }
 
-void Motor::createPublishers()
+void Motor::create_publishers()
 {
 }
 
-void Motor::createSubscribers()
+void Motor::create_subscribers()
 {
-  this->motorMoveSub = this->node->Subscribe(std::string("~/RobotinoSim/MotorMove/"), &Motor::OnMotorMoveMsg, this);
+  this->motor_move_sub_ = this->node->Subscribe(std::string("~/RobotinoSim/MotorMove/"), &Motor::on_motor_move_msg, this);
 }
 
 void Motor::update()
@@ -61,21 +61,21 @@ void Motor::update()
   float x,y;
   float yaw = this->model->GetWorldPose().rot.GetAsEuler().z;
   //foward part
-  x = cos(yaw) * vx;
-  y = sin(yaw) * vx;
+  x = cos(yaw) * vx_;
+  y = sin(yaw) * vx_;
   //sideways part
-  x += cos(yaw + 3.1415926f / 2) * vy;
-  y += sin(yaw + 3.1415926f / 2) * vy;
+  x += cos(yaw + 3.1415926f / 2) * vy_;
+  y += sin(yaw + 3.1415926f / 2) * vy_;
   // Apply velocity to the model.
   this->model->SetLinearVel(math::Vector3(x, y, 0));
-  this->model->SetAngularVel(math::Vector3(0, 0, vomega));
+  this->model->SetAngularVel(math::Vector3(0, 0, vomega_));
 }
 
-void Motor::OnMotorMoveMsg(ConstVector3dPtr &msg)
+void Motor::on_motor_move_msg(ConstVector3dPtr &msg)
 {
   printf("Got MotorMove Msg!!! %f %f %f\n", msg->x(), msg->y(), msg->z());
   //Transform relative motion into ablosulte motion
-  vx = msg->x();
-  vy = msg->y();
-  vomega = msg->z();
+  vx_ = msg->x();
+  vy_ = msg->y();
+  vomega_ = msg->z();
 }

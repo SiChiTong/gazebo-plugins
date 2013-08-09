@@ -41,15 +41,15 @@ namespace gazebo
     ~MessageDisplay();
 
     virtual void init();
-    virtual void createPublishers();
-    virtual void createSubscribers();
+    virtual void create_publishers();
+    virtual void create_subscribers();
     virtual void update();
 
   private:
     //Suscriber for Messages from Fawkes
-    transport::SubscriberPtr stringSub;
+    transport::SubscriberPtr string_sub_;
     
     //Functions for recieving Messages (registerd via suscribers)
-    void onStringMsg(ConstHeaderPtr &msg);  
+    void on_string_msg(ConstHeaderPtr &msg);  
   };
 }

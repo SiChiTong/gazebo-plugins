@@ -46,13 +46,13 @@ namespace gazebo
   private:
 
     //simulated devices
-    std::list<SimDevice*> devices_list;
+    std::list<SimDevice*> devices_list_;
 
     // Pointer to the model
-    physics::ModelPtr model;
+    physics::ModelPtr model_;
     // Pointer to the update event connection
-    event::ConnectionPtr updateConnection;
+    event::ConnectionPtr update_connection_;
     //Node for communication
-    transport::NodePtr node;
+    transport::NodePtr node_;
   };
 }

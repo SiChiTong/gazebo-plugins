@@ -41,17 +41,17 @@ namespace gazebo
     ~Gps();
   
     virtual void init();
-    virtual void createPublishers();
-    virtual void createSubscribers();
+    virtual void create_publishers();
+    virtual void create_subscribers();
     virtual void update();
 
   private:
 
     //Functions for sending ionformation to fawkes:
-    void sendPosition();
+    void send_position();
 
     //Publisher for GyroAngle
-    transport::PublisherPtr gpsPub;
+    transport::PublisherPtr gps_pub_;
 
     //Helper Variables
     double last_sent_time_;

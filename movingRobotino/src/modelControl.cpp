@@ -51,7 +51,7 @@ ModelControl::~ModelControl()
 {
   printf("Destructing ModelControl Plugin!\n");
   //Destruct all simulated devices
-  for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
+  for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
   {
     delete *it;
   }
@@ -60,34 +60,34 @@ ModelControl::~ModelControl()
 void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/) 
 {
   // Store the pointer to the model
-  this->model = _parent;
+  this->model_ = _parent;
 
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
-  this->updateConnection = event::Events::ConnectWorldUpdateBegin(boost::bind(&ModelControl::OnUpdate, this, _1));
+  this->update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&ModelControl::OnUpdate, this, _1));
 
   //Init the communication Node
-  this->node = transport::NodePtr(new transport::Node());
-  this->node->Init();
+  this->node_ = transport::NodePtr(new transport::Node());
+  this->node_->Init();
   
   //creating simulated devices
-  devices_list.push_back((SimDevice*) new MessageDisplay(model, node));
-  devices_list.push_back((SimDevice*) new Gyro(model, node));
-  devices_list.push_back((SimDevice*) new Motor(model, node));
-  devices_list.push_back((SimDevice*) new Gps(model, node));
-  devices_list.push_back((SimDevice*) new LaserSensor(model, node, sensors::get_sensor("laser")));
+  devices_list_.push_back((SimDevice*) new MessageDisplay(model_, node_));
+  devices_list_.push_back((SimDevice*) new Gyro(model_, node_));
+  devices_list_.push_back((SimDevice*) new Motor(model_, node_));
+  devices_list_.push_back((SimDevice*) new Gps(model_, node_));
+  devices_list_.push_back((SimDevice*) new LaserSensor(model_, node_, sensors::get_sensor("laser")));
 
   //initialize and publish messages of devices (before subscribing to avoid deadlocks)
-  for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
+  for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
   {
     (*it)->init();
-    (*it)->createPublishers();
+    (*it)->create_publishers();
   }
 
   //suscribe messages of devices
-  for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
+  for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
   {
-    (*it)->createSubscribers();
+    (*it)->create_subscribers();
   }
 
   printf("ModelControl-Plugin sucessfully loaded \n");
@@ -97,7 +97,7 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
 void ModelControl::OnUpdate(const common::UpdateInfo & /*_info*/)
 {
   //update devices
-  for (std::list<SimDevice*>::iterator it = devices_list.begin(); it != devices_list.end(); it++)
+  for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
   {
     (*it)->update();
   }

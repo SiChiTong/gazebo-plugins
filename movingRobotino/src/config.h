@@ -20,4 +20,4 @@
 
 //Difference in the position needed before gazebo sends a message to fawkes
 #define POSITION_SEND_TOLLERANCE 0.001
-#define GPS_SEND_FREQUENCY 5 // 1/s
+#define GPS_SEND_FREQUENCY 5.0 // 1/s

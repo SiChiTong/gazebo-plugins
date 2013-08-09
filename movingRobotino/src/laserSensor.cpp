@@ -34,7 +34,7 @@ using namespace gazebo;
 LaserSensor::LaserSensor(physics::ModelPtr model, transport::NodePtr node, sensors::SensorPtr sensorPtr)
  : SimDevice(model, node)
 {
-  this->parentSensor = boost::dynamic_pointer_cast<sensors::RaySensor>(sensorPtr);
+  this->parent_sensor_ = boost::dynamic_pointer_cast<sensors::RaySensor>(sensorPtr);
 }
 LaserSensor::~LaserSensor()
 {
@@ -45,15 +45,15 @@ void LaserSensor::init()
   printf("Initialize LaserSensor \n");
 
   //Register OnNewLaserScans function
-  this->newLaserScansConnection = this->parentSensor->GetLaserShape()->ConnectNewLaserScans(boost::bind(&LaserSensor::OnNewLaserScans, this));
+  this->new_laser_scans_connection_ = this->parent_sensor_->GetLaserShape()->ConnectNewLaserScans(boost::bind(&LaserSensor::on_new_laser_scans, this));
 }
 
-void LaserSensor::createPublishers()
+void LaserSensor::create_publishers()
 {
-  this->laserPub = this->node->Advertise<msgs::LaserScan>("~/RobotinoSim/LaserSensor/");
+  this->laser_pub_ = this->node->Advertise<msgs::LaserScan>("~/RobotinoSim/LaserSensor/");
 }
 
-void LaserSensor::createSubscribers()
+void LaserSensor::create_subscribers()
 {
 }
 
@@ -62,17 +62,17 @@ void LaserSensor::update()
   //sending the laser scans happens in OnNewLaserScans()
 }
 
-void LaserSensor::OnNewLaserScans()
+void LaserSensor::on_new_laser_scans()
 {
-  if(laserPub->HasConnections())
+  if(laser_pub_->HasConnections())
   {
     //Get relevant data
-    int numRays = parentSensor->GetRangeCount();
-    float angleMin = parentSensor->GetAngleMin().Radian();
-    float angleMax = parentSensor->GetAngleMax().Radian();
-    float angleStep = parentSensor->GetAngleResolution();
-    float rangeMin = parentSensor->GetRangeMin();
-    float rangeMax = parentSensor->GetRangeMax();
+    int numRays = parent_sensor_->GetRangeCount();
+    float angleMin = parent_sensor_->GetAngleMin().Radian();
+    float angleMax = parent_sensor_->GetAngleMax().Radian();
+    float angleStep = parent_sensor_->GetAngleResolution();
+    float rangeMin = parent_sensor_->GetRangeMin();
+    float rangeMax = parent_sensor_->GetRangeMax();
     
 
     //create Protobuf message
@@ -86,9 +86,9 @@ void LaserSensor::OnNewLaserScans()
     for(int i = 0; i < numRays; i++)
     {
     
-      laserMsg.add_ranges(parentSensor->GetRange(i));
+      laserMsg.add_ranges(parent_sensor_->GetRange(i));
       //laserMsg.add_intensities(-1);//I think I don't need the intensity
-      //printf("Ray number %d range %f\n", i, parentSensor->GetRange(i));
+      //printf("Ray number %d range %f\n", i, parent_sensor_->GetRange(i));
     }
     //dummy for world pose
     laserMsg.mutable_world_pose()->mutable_position()->set_x(0);
@@ -100,6 +100,6 @@ void LaserSensor::OnNewLaserScans()
     laserMsg.mutable_world_pose()->mutable_orientation()->set_w(0);
  
     //send message
-    laserPub->Publish(laserMsg);
+    laser_pub_->Publish(laserMsg);
     }
 }

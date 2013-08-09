@@ -41,8 +41,8 @@ namespace gazebo
     virtual ~SimDevice();
     //common functions
     virtual void init() = 0;
-    virtual void createPublishers() = 0;
-    virtual void createSubscribers() = 0;
+    virtual void create_publishers() = 0;
+    virtual void create_subscribers() = 0;
     virtual void update() = 0;
 
 

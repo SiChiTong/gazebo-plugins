@@ -42,12 +42,12 @@ void Gyro::init()
   printf("Initialize Gyro \n");
 }
 
-void Gyro::createPublishers()
+void Gyro::create_publishers()
 {
-  this->gyroPub = this->node->Advertise<msgs::Vector3d>("~/RobotinoSim/Gyro/");
+  this->gyro_pub_ = this->node->Advertise<msgs::Vector3d>("~/RobotinoSim/Gyro/");
 }
 
-void Gyro::createSubscribers()
+void Gyro::create_subscribers()
 {
 
 }
@@ -55,12 +55,12 @@ void Gyro::createSubscribers()
 void Gyro::update()
 {
   //Send gyro information to Fawkes
-  sendGyro();
+  send_gyro();
 }
 
-void Gyro::sendGyro()
+void Gyro::send_gyro()
 {
-  if(gyroPub->HasConnections())
+  if(gyro_pub_->HasConnections())
   {
     //Read gyro from simulation
     float roll = this->model->GetWorldPose().rot.GetAsEuler().x;
@@ -74,6 +74,6 @@ void Gyro::sendGyro()
     gyroMsg.set_z(yaw);
 
     //send
-    gyroPub->Publish(gyroMsg);
+    gyro_pub_->Publish(gyroMsg);
   }
 }

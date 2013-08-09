@@ -41,16 +41,16 @@ namespace gazebo
     ~Gyro();
   
     virtual void init();
-    virtual void createPublishers();
-    virtual void createSubscribers();
+    virtual void create_publishers();
+    virtual void create_subscribers();
     virtual void update();
 
   private:
 
     //Functions for sending ionformation to fawkes:
-    void sendGyro();
+    void send_gyro();
 
     //Publisher for GyroAngle
-    transport::PublisherPtr gyroPub;  
+    transport::PublisherPtr gyro_pub_;  
   };
 }

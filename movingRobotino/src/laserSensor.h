@@ -48,24 +48,24 @@ namespace gazebo
 
 
     virtual void init();
-    virtual void createPublishers();
-    virtual void createSubscribers();
+    virtual void create_publishers();
+    virtual void create_subscribers();
     virtual void update();
 
 
     //what happens if the sensor has new laser data
-    void OnNewLaserScans();
+    void on_new_laser_scans();
 
     private:
     
     //connection of the sensor
-    event::ConnectionPtr newLaserScansConnection;
+    event::ConnectionPtr new_laser_scans_connection_;
 
     //Pointer to the hokuyo sensor
-    sensors::RaySensorPtr parentSensor;
+    sensors::RaySensorPtr parent_sensor_;
 
     //Publisher for communication to fawkes
-    transport::PublisherPtr laserPub;
+    transport::PublisherPtr laser_pub_;
 
   };
 }

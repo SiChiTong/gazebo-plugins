@@ -45,12 +45,12 @@ void Gps::init()
   last_sent_time_ = model->GetWorld()->GetSimTime().Double();
 }
 
-void Gps::createPublishers()
+void Gps::create_publishers()
 {
-  this->gpsPub = this->node->Advertise<msgs::Pose>("~/RobotinoSim/Gps/");
+  this->gps_pub_ = this->node->Advertise<msgs::Pose>("~/RobotinoSim/Gps/");
 }
 
-void Gps::createSubscribers()
+void Gps::create_subscribers()
 {
 }
 
@@ -61,13 +61,13 @@ void Gps::update()
   if(time - last_sent_time_ > (1.0 / 5.0))
   {
     last_sent_time_ = time;
-    sendPosition();
+    send_position();
   }
 }
 
-void Gps::sendPosition()
+void Gps::send_position()
 {
-  if(gpsPub->HasConnections())
+  if(gps_pub_->HasConnections())
   {
     //build message
     msgs::Pose posMsg;
@@ -80,6 +80,6 @@ void Gps::sendPosition()
     posMsg.mutable_orientation()->set_w(0);
 
     //send
-    gpsPub->Publish(posMsg);
+    gps_pub_->Publish(posMsg);
   }
 }

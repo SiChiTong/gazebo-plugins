@@ -42,20 +42,20 @@ void MessageDisplay::init()
   printf("Initialize MessageDisplay Device \n");
 }
 
-void MessageDisplay::createPublishers()
+void MessageDisplay::create_publishers()
 {
 }
 
-void MessageDisplay::createSubscribers()
+void MessageDisplay::create_subscribers()
 {
-  this->stringSub = this->node->Subscribe(std::string("~/RobotinoSim/String/"), &MessageDisplay::onStringMsg, this);
+  this->string_sub_ = this->node->Subscribe(std::string("~/RobotinoSim/String/"), &MessageDisplay::on_string_msg, this);
 }
 
 void MessageDisplay::update()
 {
 }
 
-void MessageDisplay::onStringMsg(ConstHeaderPtr &msg)
+void MessageDisplay::on_string_msg(ConstHeaderPtr &msg)
 {
   printf("Msg from Fawkes: ");
   printf(msg->str_id().c_str());
