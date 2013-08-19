@@ -21,5 +21,5 @@ include_directories(${GAZEBO_INCLUDE_DIRS})
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
 
-add_library(modelControl SHARED ${SOURCES})
-target_link_libraries(modelControl ${GAZEBO_libraries})
+add_library(robotino SHARED ${SOURCES})
+target_link_libraries(robotino ${GAZEBO_libraries})

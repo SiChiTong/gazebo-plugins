@@ -1,7 +1,8 @@
 /***************************************************************************
- *  modelControl.h - Main Plugin file for controlling the robotino model
+ *  machineVision.h - provides ground truth about 
+ *                    the nearest machine light signals
  *
- *  Created: Mon Jul 29 17:33:31 2013
+ *  Created: Sat Aug 17 23:20:55 2013
  *  Copyright  2013  Frederik Zwilling
  ****************************************************************************/
 
@@ -24,35 +25,37 @@
 #include <common/common.hh>
 #include <stdio.h>
 #include <transport/transport.hh>
-#include <list>
 #include "simDevice.h"
+#include "../../llsf/src/data_table.h"
+
 
 namespace gazebo
-{   
-  class ModelControl : public ModelPlugin
+{
+/*
+   This class simulates the results of the machine light signal detection
+ */
+  class MachineVision: public SimDevice
   {
   public:
+
     //Constructor
-    ModelControl();
-
+    MachineVision(physics::ModelPtr, transport::NodePtr);
     //Destructor
-    ~ModelControl();
+    ~MachineVision();  
 
-    //Overridden ModelPlugin-Functions
-    virtual void Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/);
-    virtual void OnUpdate(const common::UpdateInfo &);
-    virtual void Reset();
+    virtual void init();
+    virtual void create_publishers();
+    virtual void create_subscribers();
+    virtual void update();
 
   private:
+    //Functions for sending ionformation to fawkes:
+    void send_light_results();
 
-    //simulated devices
-    std::list<SimDevice*> devices_list_;
+    //Publisher for light results
+    transport::PublisherPtr light_signal_pub_;
 
-    // Pointer to the model
-    physics::ModelPtr model_;
-    // Pointer to the update event connection
-    event::ConnectionPtr update_connection_;
-    //Node for communication
-    transport::NodePtr node_;
+    //Table with the simulation data
+    LlsfDataTable *table_;
   };
 }

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  modelControl.cpp - Main Plugin file for controlling the robotino model
+ *  robotino.cpp - Main Plugin file for controlling the robotino model
  *
  *  Created: Mon Jul 29 17:33:31 2013
  *  Copyright  2013  Frederik Zwilling
@@ -29,7 +29,7 @@
 #include <sensors/SensorTypes.hh>
 #include <sensors/RaySensor.hh>
 
-#include "modelControl.h"
+#include "robotino.h"
 #include "simDevice.h"
 #include "messageDisplay.h"
 #include "gyro.h"
@@ -40,15 +40,15 @@
 using namespace gazebo;
 
 // Register this plugin to make it available in the simulator
-GZ_REGISTER_MODEL_PLUGIN(ModelControl)
+GZ_REGISTER_MODEL_PLUGIN(Robotino)
 
-ModelControl::ModelControl()
+Robotino::Robotino()
 {
 }
 
-ModelControl::~ModelControl()
+Robotino::~Robotino()
 {
-  printf("Destructing ModelControl Plugin!\n");
+  printf("Destructing Robotino Plugin!\n");
   //Destruct all simulated devices
   for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
   {
@@ -56,14 +56,14 @@ ModelControl::~ModelControl()
   }
 }
 
-void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/) 
+void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/) 
 {
   // Store the pointer to the model
   this->model_ = _parent;
 
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
-  this->update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&ModelControl::OnUpdate, this, _1));
+  this->update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&Robotino::OnUpdate, this, _1));
 
   //Init the communication Node
   this->node_ = transport::NodePtr(new transport::Node());
@@ -89,11 +89,11 @@ void ModelControl::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
     (*it)->create_subscribers();
   }
 
-  printf("ModelControl-Plugin sucessfully loaded \n");
+  printf("Robotino-Plugin sucessfully loaded \n");
 }
 
 // Called by the world update start event
-void ModelControl::OnUpdate(const common::UpdateInfo & /*_info*/)
+void Robotino::OnUpdate(const common::UpdateInfo & /*_info*/)
 {
   //update devices
   for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
@@ -102,6 +102,6 @@ void ModelControl::OnUpdate(const common::UpdateInfo & /*_info*/)
   }
 }
 
-void ModelControl::Reset()
+void Robotino::Reset()
 {
 }

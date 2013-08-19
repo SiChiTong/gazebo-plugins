@@ -1,9 +1,0 @@
-include_directories(${GAZEBOSIM_SOURCE_DIR}/src)
-link_directories(${GAZEBOSIM_BINARY_DIR}/src)
-
-add_library(device SHARED device)
-target_link_libraries(device ${GAZEBO_libraries})
-add_library(messageDisplay SHARED messageDisplay)
-target_link_libraries(messageDisplay ${GAZEBO_libraries} device)
-add_library(modelControl SHARED modelControl)
-target_link_libraries(modelControl ${GAZEBO_libraries} device messageDisplay)
