@@ -27,8 +27,8 @@
 #include "refbox_comm.h"
 #include "data_table.h"
 
-#include "msgs/MachineCommands.pb.h"
-#include "msgs/MachineInfo.pb.h"
+#include "../../libs/msgs/MachineCommands.pb.h"
+#include "../../libs/msgs/MachineInfo.pb.h"
 
 using namespace gazebo;
 

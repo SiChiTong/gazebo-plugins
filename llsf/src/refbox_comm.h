@@ -30,7 +30,7 @@
 
 #include "data_table.h"
 
-#include "msgs/MachineInfo.pb.h"
+#include "../../libs/msgs/MachineInfo.pb.h"
 
 
 //typedef const boost::shared_ptr<llsf_msgs::MachineInfo const> ConstMachineInfoPtr;

@@ -23,8 +23,12 @@
 #ifndef DATATABLE_H__
 #define DATATABLE_H__
 
+
 #include "refbox_comm.h"
 #include <string.h>
+
+
+#define NUMBER_MACHINES = 16;
 
 namespace gazebo
 {
