@@ -1,20 +1,16 @@
-<?xml version="1.0"?>
-<sdf version="1.3">
+<?xml version="1.0" ?>
+<sdf version="1.4">
   <world name="LLSF">
-
     <!-- Ground Plane -->
     <include>
       <uri>model://ground_plane</uri>
     </include>
-
     <include>
       <uri>model://sun</uri>
     </include>
-
     <include>
       <uri>model://llsf_field</uri>
     </include>
-
-    <plugin name="world" filename="libworld.so"/>
+    <plugin name="world" filename="build/libllsf_world.so" />
   </world>
 </sdf>

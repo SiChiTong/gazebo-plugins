@@ -37,7 +37,6 @@
 #include "gps.h"
 #include "laserSensor.h"
 
-
 using namespace gazebo;
 
 // Register this plugin to make it available in the simulator
