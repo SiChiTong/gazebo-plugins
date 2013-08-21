@@ -36,6 +36,7 @@
 #include "motor.h"
 #include "gps.h"
 #include "laserSensor.h"
+#include "machineVision.h"
 
 using namespace gazebo;
 
@@ -75,6 +76,7 @@ void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   devices_list_.push_back((SimDevice*) new Motor(model_, node_));
   devices_list_.push_back((SimDevice*) new Gps(model_, node_));
   devices_list_.push_back((SimDevice*) new LaserSensor(model_, node_, sensors::get_sensor("laser")));
+  devices_list_.push_back((SimDevice*) new MachineVision(model_, node_));
 
   //initialize and publish messages of devices (before subscribing to avoid deadlocks)
   for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)

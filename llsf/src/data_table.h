@@ -28,7 +28,7 @@
 #include <string.h>
 
 
-#define NUMBER_MACHINES = 16;
+#define NUMBER_MACHINES 16;
 
 namespace gazebo
 {
@@ -37,23 +37,23 @@ namespace gazebo
   
   typedef enum MachineName
   {
-    NONE = 0,
-    M1 = 1,
-    M2 = 2,
-    M3 = 3,
-    M4 = 4,
-    M5 = 5,
-    M6 = 6,
-    M7 = 7,
-    M8 = 8,
-    M9 = 9,
-    M10 = 10,
-    D1 = 11,
-    D2 = 12,
-    D3 = 13,
-    R1 = 14,
-    R2 = 15,
-    T = 16    
+    M1,
+    M2,
+    M3,
+    M4,
+    M5,
+    M6,
+    M7,
+    M8,
+    M9,
+    M10,
+    D1,
+    D2,
+    D3,
+    R1,
+    R2,
+    T,
+    NONE
   } MachineName;
 
   typedef enum LightState

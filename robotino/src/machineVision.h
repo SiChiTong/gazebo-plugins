@@ -57,5 +57,7 @@ namespace gazebo
 
     //Table with the simulation data
     LlsfDataTable *table_;
+
+    void send_lights();
   };
 }

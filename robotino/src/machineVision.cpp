@@ -29,7 +29,9 @@
 #include "simDevice.h"
 #include "machineVision.h"
 #include "../../llsf/src/data_table.h"
-
+#include "../../libs/msgs/LightSignals.pb.h"
+#include "../../libs/msgs/MachineInfo.pb.h"
+#include "config.h"
 
 using namespace gazebo;
 
@@ -49,7 +51,7 @@ void MachineVision::init()
 
 void MachineVision::create_publishers()
 {
-  this->light_signal_pub_ = this->node->Advertise<msgs::Vector3d>("~/RobotinoSim/MachineVision/");
+  this->light_signal_pub_ = this->node->Advertise<llsf_msgs::AllMachineSignals>("~/RobotinoSim/MachineVision/");
 }
 
 void MachineVision::create_subscribers()
@@ -59,13 +61,63 @@ void MachineVision::create_subscribers()
 
 void MachineVision::update()
 {
-  send_light_results();
+  //Send position information to Fawkes
+  double time = model->GetWorld()->GetSimTime().Double();
+  if(time - last_sent_time_ > (1.0 / LIGHT_SIGNAL_SEND_FREQUENCY))
+  {
+    last_sent_time_ = time;
+    send_lights();
+  }
 }
 
-/*void MachineVision::send_light_results()
+void MachineVision::send_lights()
 {
   //just send ground truth machine light signals with position to fawkes
   //the fawkes plugin takes care of the selection of the right machine in front of the robotino
+  //because it knows which position the laser cluster has chosen
   
-  
-  }*/
+  //build Protobuf Message
+  llsf_msgs::AllMachineSignals all_machines;
+  for(int i = M1; i != T; i++)
+  {
+    llsf_msgs::MachineSignal *machine_signal = all_machines.add_machines();
+    //get mchine data
+    Machine machine = table_->get_machine((MachineName) i);
+    //set name
+    machine_signal->set_name(machine.name_as_string);
+    //set lights
+    llsf_msgs::LightSpec *red = machine_signal->add_lights();
+    red->set_color(llsf_msgs::RED);
+    switch(machine.red)
+    {
+    case ON: red->set_state(llsf_msgs::ON); break;
+    case BLINK: red->set_state(llsf_msgs::BLINK); break;
+    default: red->set_state(llsf_msgs::OFF); break;
+    }
+    llsf_msgs::LightSpec *yellow = machine_signal->add_lights();
+    yellow->set_color(llsf_msgs::YELLOW);
+    switch(machine.yellow)
+    {
+    case ON: yellow->set_state(llsf_msgs::ON); break;
+    case BLINK: yellow->set_state(llsf_msgs::BLINK); break;
+    default: yellow->set_state(llsf_msgs::OFF); break;
+    }
+    llsf_msgs::LightSpec *green = machine_signal->add_lights();
+    green->set_color(llsf_msgs::GREEN);
+    switch(machine.green)
+    {
+    case ON: green->set_state(llsf_msgs::ON); break;
+    case BLINK: green->set_state(llsf_msgs::BLINK); break;
+    default: green->set_state(llsf_msgs::OFF); break;
+    }
+    //set position
+    machine_signal->mutable_pose()->set_x(machine.x);
+    machine_signal->mutable_pose()->set_y(machine.y);
+    machine_signal->mutable_pose()->set_ori(machine.ori);
+    //set timestamp of position (only needed to successfully compile)
+    machine_signal->mutable_pose()->mutable_timestamp()->set_sec(0);
+    machine_signal->mutable_pose()->mutable_timestamp()->set_nsec(0);
+  }
+  //send it
+  light_signal_pub_->Publish(all_machines);
+}
