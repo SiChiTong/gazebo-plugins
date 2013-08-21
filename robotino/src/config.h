@@ -20,4 +20,8 @@
 
 //Difference in the position needed before gazebo sends a message to fawkes
 #define POSITION_SEND_TOLLERANCE 0.001
-#define GPS_SEND_FREQUENCY 5.0 // 1/s
+
+ // Frequencies in hz
+#define GPS_SEND_FREQUENCY 5.0
+#define LIGHT_SIGNAL_SEND_FREQUENCY 2.0
+//laser send frequency defined in hokuyo/model.sdf

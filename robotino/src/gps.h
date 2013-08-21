@@ -52,8 +52,5 @@ namespace gazebo
 
     //Publisher for GyroAngle
     transport::PublisherPtr gps_pub_;
-
-    //Helper Variables
-    double last_sent_time_;
   };
 }

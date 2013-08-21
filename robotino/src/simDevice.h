@@ -52,6 +52,8 @@ namespace gazebo
     physics::ModelPtr model;
     //Node for communication
     transport::NodePtr node;
+    //time variable to send in intervals
+    double last_sent_time_;
   };
 }
 #endif
