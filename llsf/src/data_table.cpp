@@ -90,6 +90,20 @@ void LlsfDataTable::set_light_state(MachineName machine, LightState red,
   machines_[machine].green = green;
 }
 
+void LlsfDataTable::set_light_state(std::string machine, LightState red,
+		     LightState yellow, LightState green)
+{
+  for(int i = M1; i <= T; i++)
+  {
+    //is it the right machine?
+    if(machines_[i].name_as_string.find(machine) != std::string::npos)
+    {
+      set_light_state(machines_[i].name, red, yellow, green);
+      return;
+    }
+  }
+}
+
 void LlsfDataTable::set_puck_pos(int puck, double x, double y)
 {
   pucks_[puck].x = x;

@@ -58,9 +58,9 @@ namespace gazebo
 
   typedef enum LightState
   {
-    OFF = 0,
-    ON = 1,
-    BLINK = 2
+    OFF,
+    ON,
+    BLINK
   } LightState;
 
   typedef struct Machine
@@ -118,6 +118,8 @@ namespace gazebo
 
     // Setter
     void set_light_state(MachineName machine, LightState red,
+			 LightState yellow, LightState green);
+    void set_light_state(std::string machine, LightState red,
 			 LightState yellow, LightState green);
     void set_puck_pos(int puck, double x, double y);
     void set_puck_under_rfid(int puck, MachineName machine);

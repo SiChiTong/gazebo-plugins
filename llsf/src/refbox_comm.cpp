@@ -38,10 +38,10 @@ RefboxComm::RefboxComm(LlsfDataTable *table, transport::NodePtr gazebo_node)
   gazebo_node_ = gazebo_node;
 
   //create publisher
-  this->place_puck_under_machine_pub_ = gazebo_node_->Advertise<llsf_msgs::PlacePuckUnderMachine>("~/LLSF-RefboxComm/PlacePuckUnderMachine/");
+  this->place_puck_under_machine_pub_ = gazebo_node_->Advertise<llsf_msgs::PlacePuckUnderMachine>("~/LLSFRbSim/PlacePuckUnderMachine/");
 
   //create subscriber
-  //this->machine_info_sub_ = gazebo_node_->Subscribe(std::string("~/LLSF-RefboxComm/MachineInfo/"), &RefboxComm::on_machine_info_msg, this);
+  this->machine_info_sub_ = gazebo_node_->Subscribe(std::string("~/LLSFRbSim/MachineInfo/"), &RefboxComm::on_machine_info_msg, this);
 }
 
 RefboxComm::~RefboxComm()
@@ -59,7 +59,32 @@ void RefboxComm::send_puck_placed_under_rfid(int puck, Machine & machine)
   place_puck_under_machine_pub_->Publish(ppum);
 }
 
-/*void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)
+void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)
 {
-
-}*/
+  printf("Got MachineInfo :D\n");
+  
+  //read all machines and set light signals
+  for(int i = 0; i < msg->machines_size(); i++)
+  {
+    llsf_msgs::Machine machine = msg->machines(i);
+    LightState red, yellow, green;
+    for(int j = 0; j < machine.lights_size(); j++)
+    {
+      llsf_msgs::LightSpec light_spec = machine.lights(j);
+      LightState state = OFF;
+      switch(light_spec.state())
+      {
+      case llsf_msgs::OFF: state = OFF; break;
+      case llsf_msgs::ON: state = ON; break;
+      case llsf_msgs::BLINK: state = BLINK; break;
+      }
+      switch(light_spec.color())
+      {
+      case llsf_msgs::RED: red = state; break;
+      case llsf_msgs::YELLOW: yellow = state; break;
+      case llsf_msgs::GREEN: green = state; break;
+      }
+      table_->set_light_state(machine.name(), red, yellow, green);
+    }
+  }
+}

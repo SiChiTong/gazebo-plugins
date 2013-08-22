@@ -33,8 +33,7 @@
 #include "../../libs/msgs/MachineInfo.pb.h"
 
 
-//typedef const boost::shared_ptr<llsf_msgs::MachineInfo const> ConstMachineInfoPtr;
-
+typedef const boost::shared_ptr<llsf_msgs::MachineInfo const> ConstMachineInfoPtr;
 
 namespace gazebo
 {
@@ -73,8 +72,7 @@ namespace gazebo
     //Suscriber for MachineInfos from the refbox
     transport::SubscriberPtr machine_info_sub_;
 
-
-    //    void on_machine_info_msg(ConstMachineInfoPtr &msg);
+    void on_machine_info_msg(ConstMachineInfoPtr &msg);
   };
 }
 #endif
