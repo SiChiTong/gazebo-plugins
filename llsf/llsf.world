@@ -11,6 +11,6 @@
     <include>
       <uri>model://llsf_field</uri>
     </include>
-    <plugin name="world" filename="build/libllsf_world.so" />
+    <plugin name="world" filename="libllsf_world.so" />
   </world>
 </sdf>

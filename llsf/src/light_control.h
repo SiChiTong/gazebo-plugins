@@ -1,7 +1,7 @@
 /***************************************************************************
- *  llsf_world.h - The main plugin for the llsf field
+ *  light_control.h - Module to control the Machine Lights in the visualization
  *
- *  Created: Sun Aug 18 14:55:33 2013
+ *  Created: Mon Aug 26 11:27:51 2013
  *  Copyright  2013  Frederik Zwilling
  ****************************************************************************/
 
@@ -18,40 +18,54 @@
  *  Read the full text in the LICENSE.GPL file in the doc directory.
  */
 
+#ifndef _LIGHT_CONTROL_HH_
+#define _LIGHT_CONTROL_HH_
 
-#include <gazebo/gazebo.hh>
-
+#include <string>
+#include <msgs/msgs.hh>
+#include <physics/physics.hh>
 #include "data_table.h"
-#include "light_control.h"
-
 
 namespace gazebo
-{
-  class LlsfWorldPlugin : public WorldPlugin
+{  
+  typedef enum Color
   {
-  public:
+    RED,
+    YELLOW,
+    GREEN
+  } Color;
+
+
+  namespace msgs
+  {
+    class Visual;
+  }
+
+  /**
+   * controls the Machine Lights in the visualization
+   */
+  class LightControl
+  {
+  public: 
     //Constructor
-    LlsfWorldPlugin();
-    //Destructor
-    ~LlsfWorldPlugin();
+    LightControl(physics::WorldPtr world);
+    //Deconstructor
+    virtual ~LightControl();
 
-    virtual void Load(physics::WorldPtr _world, sdf::ElementPtr _sdf);
-
+    void update();
 
   private:
-    //update function
-    void Update();
-    event::ConnectionPtr update_connection_;
-
-    //Table with simulation data
-    LlsfDataTable *table_;
-
-    LightControl *light_control_;
-
-    //Node for communication
+    //communication node
     transport::NodePtr node_;
-    
+    //Publisher to send visual changes to gazebo
+    transport::PublisherPtr visPub_;
+
+    msgs::Visual create_vis_msg(std::string machine_name, Color color, LightState state);
+
+    //time variable to send in intervals
+    double last_sent_time_;
+
     physics::WorldPtr world_;
   };
-  GZ_REGISTER_WORLD_PLUGIN(LlsfWorldPlugin)
 }
+#endif
