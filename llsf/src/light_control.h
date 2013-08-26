@@ -66,6 +66,8 @@ namespace gazebo
     double last_sent_time_;
 
     physics::WorldPtr world_;
+
+    LlsfDataTable *table_;
   };
 }
 #endif

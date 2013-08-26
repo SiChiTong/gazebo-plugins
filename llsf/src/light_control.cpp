@@ -40,7 +40,8 @@ LightControl::LightControl(physics::WorldPtr world)
   node_ = transport::NodePtr(new transport::Node());
   world_ = world;
   node_->Init(world_->GetName().c_str());
-  visPub_ = this->node_->Advertise<msgs::Visual>("~/visual", 10);
+  visPub_ = this->node_->Advertise<msgs::Visual>("~/visual", NUMBER_MACHINES * 3);
+  table_ = LlsfDataTable::get_table();
 }
 LightControl::~LightControl()
 {
@@ -53,29 +54,30 @@ void LightControl::update()
   /* Visuals in Gazebo can be modified by publishing a Visual msg
      on the ~/visual topic (node has to be inited with the worlds name) 
      However the messages do not override visuals defined in the sdf. */
+  
+  //update lights twice a second
   double time = world_->GetSimTime().Double();
   if(time - last_sent_time_ < 0.5)
   {
     return;
   }
-  
   last_sent_time_ = time;
-    
-  Machine m1 = LlsfDataTable::get_table()->get_machine(M1);
-  Machine m2 = LlsfDataTable::get_table()->get_machine(M2);
-  Machine m3 = LlsfDataTable::get_table()->get_machine(M3);
-  Machine m4 = LlsfDataTable::get_table()->get_machine(M4);
-    
+
   if(!visPub_->HasConnections())
   {
     printf("light_control: visual publisher not connected!\n");
+    return;
   }
-  else
+
+  //update all machines
+  Machine* machines = table_->get_machines();
+  for(int i = 0; i < NUMBER_MACHINES; i++)
   {
-    visPub_->Publish(create_vis_msg(m1.name_as_string, RED, ON));
-    visPub_->Publish(create_vis_msg(m2.name_as_string, YELLOW, ON));
-    visPub_->Publish(create_vis_msg(m3.name_as_string, GREEN, ON));
-    visPub_->Publish(create_vis_msg(m4.name_as_string, RED, OFF));
+    //the actual magic
+    Machine machine = machines[i];
+    visPub_->Publish(create_vis_msg(machine.name_as_string, RED, machine.red));
+    visPub_->Publish(create_vis_msg(machine.name_as_string, YELLOW, machine.yellow));
+    visPub_->Publish(create_vis_msg(machine.name_as_string, GREEN, machine.green));
   }
 }
 
@@ -84,7 +86,17 @@ msgs::Visual LightControl::create_vis_msg(std::string machine_name, Color color,
 {
   //create message to return
   msgs::Visual msg;
-  //resolve BLINK
+
+  //resolve BLINK (Machines Blink at 2Hz)
+  double time = world_->GetSimTime().Double();  
+  if(fmod(time,1) >= 0.5)
+  {
+    state = OFF;
+  }
+  else
+  {
+    state = ON;
+  }
   
   //common parameters
   msg.set_parent_name(machine_name.c_str());

@@ -77,6 +77,11 @@ Machine LlsfDataTable::get_machine(MachineName name)
   return machines_[name];
 }
 
+Machine* LlsfDataTable::get_machines()
+{
+  return machines_;
+}
+
 Puck LlsfDataTable::get_puck(int number)
 {
   return pucks_[number]; //assuming the pucks numbers start at 0
@@ -173,9 +178,9 @@ void LlsfDataTable::init_machine(MachineName number, std::string name)
   machines_[number].x = world_->GetEntity(name)->GetWorldPose().pos.x;
   machines_[number].y = world_->GetEntity(name)->GetWorldPose().pos.y;
   machines_[number].ori = world_->GetEntity(name)->GetWorldPose().rot.GetAsEuler().z;
-  machines_[number].red = OFF;
-  machines_[number].yellow = OFF;
-  machines_[number].green = OFF;
+  machines_[number].red = BLINK;//OFF;
+  machines_[number].yellow = BLINK;//OFF;
+  machines_[number].green = BLINK;//OFF;
 }
 
 void LlsfDataTable::init_puck(int number, std::string name)

@@ -28,7 +28,7 @@
 #include <string.h>
 
 
-#define NUMBER_MACHINES 16;
+#define NUMBER_MACHINES 16
 
 namespace gazebo
 {
@@ -114,6 +114,7 @@ namespace gazebo
 
     //Getter
     Machine get_machine(MachineName name);
+    Machine* get_machines();
     Puck get_puck(int number);
 
     // Setter

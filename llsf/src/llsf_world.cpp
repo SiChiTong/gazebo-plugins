@@ -24,6 +24,8 @@ void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
   //init simulation data
   LlsfDataTable::init(_world, node_);
   table_ = LlsfDataTable::get_table();
+
+  //has to be created after the table
   light_control_ = new LightControl(world_);
 
   //connect update function
