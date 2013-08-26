@@ -29,6 +29,7 @@
 
 
 #define NUMBER_MACHINES 16
+#define NUMBER_PUCKS 10
 
 namespace gazebo
 {
@@ -78,6 +79,7 @@ namespace gazebo
   typedef struct Puck
   {
     int number;
+    std::string name_as_string;
     double x;
     double y;
     MachineName under_rfid;

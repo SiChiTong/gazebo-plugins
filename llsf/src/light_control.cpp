@@ -53,7 +53,7 @@ void LightControl::update()
 {  
   /* Visuals in Gazebo can be modified by publishing a Visual msg
      on the ~/visual topic (node has to be inited with the worlds name) 
-     However the messages do not override visuals defined in the sdf. */
+  x   However the messages do not override visuals defined in the sdf. */
   
   //update lights twice a second
   double time = world_->GetSimTime().Double();

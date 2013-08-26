@@ -15,6 +15,9 @@ LlsfWorldPlugin::LlsfWorldPlugin() : WorldPlugin()
 
 LlsfWorldPlugin::~LlsfWorldPlugin() 
 {
+  delete light_control_;
+  delete puck_localization_;
+  delete rfid_sensors_;
 }
 
 void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
@@ -27,6 +30,8 @@ void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 
   //has to be created after the table
   light_control_ = new LightControl(world_);
+  puck_localization_ = new PuckLocalization(world_);
+  rfid_sensors_ = new RfidSensors();
 
   //connect update function
   update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&LlsfWorldPlugin::Update, this));
@@ -36,4 +41,6 @@ void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 void LlsfWorldPlugin::Update()
 {
   light_control_->update();
+  puck_localization_->update();
+  rfid_sensors_->update();
 }

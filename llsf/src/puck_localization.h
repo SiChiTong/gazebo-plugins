@@ -1,7 +1,7 @@
 /***************************************************************************
- *  llsf_world.h - The main plugin for the llsf field
+ *  puck_localization.h - locates all pucks and writes position in table
  *
- *  Created: Sun Aug 18 14:55:33 2013
+ *  Created: Mon Aug 26 20:25:44 2013
  *  Copyright  2013  Frederik Zwilling
  ****************************************************************************/
 
@@ -18,48 +18,34 @@
  *  Read the full text in the LICENSE.GPL file in the doc directory.
  */
 
+#ifndef _PUCK_LOCALIZATION_HH_
+#define _PUCK_LOCALIZATION_HH_
 
-#include <gazebo/gazebo.hh>
-
+#include <string>
+#include <gazebo.hh>
+#include <physics/physics.hh>
 #include "data_table.h"
-#include "light_control.h"
-#include "puck_localization.h"
-#include "rfid_sensors.h"
-
 
 namespace gazebo
 {
-  class LlsfWorldPlugin : public WorldPlugin
+ /**
+   * locates all pucks and writes position in table
+   */
+  class PuckLocalization
   {
-  public:
+  public: 
     //Constructor
-    LlsfWorldPlugin();
-    //Destructor
-    ~LlsfWorldPlugin();
+    PuckLocalization(physics::WorldPtr world);
+    //Deconstructor
+    ~PuckLocalization();
 
-    virtual void Load(physics::WorldPtr _world, sdf::ElementPtr _sdf);
-
+    void update();
 
   private:
-    //update function
-    void Update();
-    event::ConnectionPtr update_connection_;
-
-    //Node for communication
-    transport::NodePtr node_;
+    //Pointer to simulation data
+    LlsfDataTable *table_;
     
     physics::WorldPtr world_;
-
-    //Table with simulation data
-    LlsfDataTable *table_;
-
-    //Controller of machine light signals
-    LightControl *light_control_;
-
-    PuckLocalization *puck_localization_;
-    
-    //checks if there is a puck under the rfid
-    RfidSensors *rfid_sensors_;
   };
-  GZ_REGISTER_WORLD_PLUGIN(LlsfWorldPlugin)
 }
+#endif

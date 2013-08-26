@@ -147,16 +147,16 @@ void LlsfDataTable::init_table()
   init_machine(R2, "llsf_field::R2::machine_link");
   init_machine(T, "llsf_field::T::machine_link");
 
-  init_puck(0, "llsf_field::Puck0::cylinder");
-  init_puck(1, "llsf_field::Puck1::cylinder");
-  init_puck(2, "llsf_field::Puck2::cylinder");
-  init_puck(3, "llsf_field::Puck3::cylinder");
-  init_puck(4, "llsf_field::Puck4::cylinder");
-  init_puck(5, "llsf_field::Puck5::cylinder");
-  init_puck(6, "llsf_field::Puck6::cylinder");
-  init_puck(7, "llsf_field::Puck7::cylinder");
-  init_puck(8, "llsf_field::Puck8::cylinder");
-  init_puck(9, "llsf_field::Puck9::cylinder");
+  init_puck(0, "Puck0::cylinder");
+  init_puck(1, "Puck1::cylinder");
+  init_puck(2, "Puck2::cylinder");
+  init_puck(3, "Puck3::cylinder");
+  init_puck(4, "Puck4::cylinder");
+  init_puck(5, "Puck5::cylinder");
+  init_puck(6, "Puck6::cylinder");
+  init_puck(7, "Puck7::cylinder");
+  init_puck(8, "Puck8::cylinder");
+  init_puck(9, "Puck9::cylinder");
   /*
     CURRENTLY NOT IN THE SIMULATION
   init_puck(10, "llsf_field::Puck10::cylinder");
@@ -186,8 +186,7 @@ void LlsfDataTable::init_machine(MachineName number, std::string name)
 void LlsfDataTable::init_puck(int number, std::string name)
 {
   pucks_[number].number = number;
-  pucks_[number].x = world_->GetEntity(name)->GetWorldPose().pos.x;
-  pucks_[number].y = world_->GetEntity(name)->GetWorldPose().pos.y;
+  pucks_[number].name_as_string = name;
   pucks_[number].under_rfid = NONE;
   pucks_[number].in_machine_area = NONE;
 }
