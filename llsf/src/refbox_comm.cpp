@@ -39,6 +39,7 @@ RefboxComm::RefboxComm(LlsfDataTable *table, transport::NodePtr gazebo_node)
 
   //create publisher
   this->place_puck_under_machine_pub_ = gazebo_node_->Advertise<llsf_msgs::PlacePuckUnderMachine>("~/LLSFRbSim/PlacePuckUnderMachine/");
+  this->remove_puck_from_machine_pub_ = gazebo_node_->Advertise<llsf_msgs::RemovePuckFromMachine>("~/LLSFRbSim/RemovePuckFromMachine/");
 
   //create subscriber
   this->machine_info_sub_ = gazebo_node_->Subscribe(std::string("~/LLSFRbSim/MachineInfo/"), &RefboxComm::on_machine_info_msg, this);
@@ -57,6 +58,17 @@ void RefboxComm::send_puck_placed_under_rfid(int puck, Machine & machine)
 
   //publish
   place_puck_under_machine_pub_->Publish(ppum);
+}
+
+void RefboxComm::send_remove_puck_from_machine(int puck, Machine & machine)
+{
+  //create the message
+  llsf_msgs::RemovePuckFromMachine rpfm;
+  rpfm.set_puck_id(puck);
+  rpfm.set_machine_name(machine.name_as_string);
+
+  //publish
+  remove_puck_from_machine_pub_->Publish(rpfm);
 }
 
 void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)

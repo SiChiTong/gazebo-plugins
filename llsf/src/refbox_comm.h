@@ -58,6 +58,7 @@ namespace gazebo
 
     //Member functions:
     void send_puck_placed_under_rfid(int puck, Machine & machine);
+    void send_remove_puck_from_machine(int puck, Machine & machine);
 
 
   private:
@@ -68,6 +69,7 @@ namespace gazebo
 
     //Publisher for communication to the refbox (via the adapter)
     transport::PublisherPtr place_puck_under_machine_pub_;
+    transport::PublisherPtr remove_puck_from_machine_pub_;
 
     //Suscriber for MachineInfos from the refbox
     transport::SubscriberPtr machine_info_sub_;

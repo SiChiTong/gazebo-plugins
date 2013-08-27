@@ -60,6 +60,9 @@ namespace gazebo
     
     //checks if there is a puck under the rfid
     RfidSensors *rfid_sensors_;
+
+    double puck_update_frequency_;
+    double last_puck_update_;
   };
   GZ_REGISTER_WORLD_PLUGIN(LlsfWorldPlugin)
 }

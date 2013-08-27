@@ -126,6 +126,7 @@ namespace gazebo
 			 LightState yellow, LightState green);
     void set_puck_pos(int puck, double x, double y);
     void set_puck_under_rfid(int puck, MachineName machine);
+    void remove_puck_under_rfid(int puck, MachineName machine);
     void set_puck_in_machine_area(int puck, MachineName machine);
 
   private:

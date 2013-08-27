@@ -122,6 +122,13 @@ void LlsfDataTable::set_puck_under_rfid(int puck, MachineName machine)
   refbox_comm_->send_puck_placed_under_rfid(puck, machines_[machine]);
 }
 
+void LlsfDataTable::remove_puck_under_rfid(int puck, MachineName machine)
+{
+  pucks_[puck].under_rfid = NONE;
+  //inform refbox
+  refbox_comm_->send_remove_puck_from_machine(puck, machines_[machine]);
+}
+
 void LlsfDataTable::set_puck_in_machine_area(int puck, MachineName machine)
 {
   pucks_[puck].in_machine_area = machine;

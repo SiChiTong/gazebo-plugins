@@ -11,6 +11,7 @@ LlsfWorldPlugin::LlsfWorldPlugin() : WorldPlugin()
   //Init the communication Node
   this->node_ = transport::NodePtr(new transport::Node());
   this->node_->Init();
+  puck_update_frequency_ = 3.0;
 }
 
 LlsfWorldPlugin::~LlsfWorldPlugin() 
@@ -40,7 +41,12 @@ void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 
 void LlsfWorldPlugin::Update()
 {
+  double time = world_->GetSimTime().Double();
   light_control_->update();
-  puck_localization_->update();
-  rfid_sensors_->update();
+  if((time - last_puck_update_) > (1.0 / puck_update_frequency_))
+  {
+    last_puck_update_ = time;
+    puck_localization_->update();
+    rfid_sensors_->update();
+  }
 }
