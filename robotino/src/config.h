@@ -25,3 +25,4 @@
 #define GPS_SEND_FREQUENCY 5.0
 #define LIGHT_SIGNAL_SEND_FREQUENCY 2.0
 //laser send frequency defined in hokuyo/model.sdf
+#define PUCK_DETECTION_SEND_FREQUENCY 1.0
