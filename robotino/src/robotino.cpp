@@ -39,6 +39,7 @@
 #include "machineVision.h"
 #include "puck_detection.h"
 #include "infraredPuckSensor.h"
+#include "gripper_laser_sensor.h"
 
 using namespace gazebo;
 
@@ -81,6 +82,8 @@ void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   devices_list_.push_back((SimDevice*) new MachineVision(model_, node_));
   devices_list_.push_back((SimDevice*) new PuckDetection(model_, node_));
   devices_list_.push_back((SimDevice*) new InfraredPuckSensor(model_, node_, sensors::get_sensor("infrared_puck_sensor")));
+  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor("gripper_laser_left"), LEFT));
+  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor("gripper_laser_right"), RIGHT));
 
   //initialize and publish messages of devices (before subscribing to avoid deadlocks)
   for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
