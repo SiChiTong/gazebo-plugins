@@ -36,6 +36,8 @@ SimDevice::SimDevice(physics::ModelPtr model, transport::NodePtr node)
 
   //communication Node
   this->node = node;
+
+  last_sent_time_ = 0.0;
 }
 
 SimDevice::~SimDevice()
