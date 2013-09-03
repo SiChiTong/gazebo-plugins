@@ -42,8 +42,8 @@ void PuckLocalization::update()
     Puck puck = table_->get_puck(p);
 
     //get position from world position of the Puck model
-    double x = world_->GetEntity(puck.name_as_string.c_str())->GetWorldPose().pos.x;
-    double y = world_->GetEntity(puck.name_as_string.c_str())->GetWorldPose().pos.y;
+    double x = world_->GetEntity(puck.name_link.c_str())->GetWorldPose().pos.x;
+    double y = world_->GetEntity(puck.name_link.c_str())->GetWorldPose().pos.y;
 
     //write it into the data table
     table_->set_puck_pos(p, x, y);

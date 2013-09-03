@@ -53,8 +53,8 @@ void RefboxComm::send_puck_placed_under_rfid(int puck, Machine & machine)
 {
   //create the message
   llsf_msgs::PlacePuckUnderMachine ppum;
-  ppum.set_puck_id(puck);
-  ppum.set_machine_name(machine.name_as_string);
+  ppum.set_puck_id(puck+1);//+1 because the refbox starts with 1
+  ppum.set_machine_name(machine.name_string);
 
   //publish
   place_puck_under_machine_pub_->Publish(ppum);
@@ -64,8 +64,8 @@ void RefboxComm::send_remove_puck_from_machine(int puck, Machine & machine)
 {
   //create the message
   llsf_msgs::RemovePuckFromMachine rpfm;
-  rpfm.set_puck_id(puck);
-  rpfm.set_machine_name(machine.name_as_string);
+  rpfm.set_puck_id(puck+1);//+1 because the refbox starts with 1
+  rpfm.set_machine_name(machine.name_string);
 
   //publish
   remove_puck_from_machine_pub_->Publish(rpfm);
@@ -73,8 +73,7 @@ void RefboxComm::send_remove_puck_from_machine(int puck, Machine & machine)
 
 void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)
 {
-  printf("Got MachineInfo :D\n");
-  
+  // printf("Got MachineInfo :D\n");  
   //read all machines and set light signals
   for(int i = 0; i < msg->machines_size(); i++)
   {

@@ -75,9 +75,9 @@ void LightControl::update()
   {
     //the actual magic
     Machine machine = machines[i];
-    visPub_->Publish(create_vis_msg(machine.name_as_string, RED, machine.red));
-    visPub_->Publish(create_vis_msg(machine.name_as_string, YELLOW, machine.yellow));
-    visPub_->Publish(create_vis_msg(machine.name_as_string, GREEN, machine.green));
+    visPub_->Publish(create_vis_msg(machine.name_link, RED, machine.red));
+    visPub_->Publish(create_vis_msg(machine.name_link, YELLOW, machine.yellow));
+    visPub_->Publish(create_vis_msg(machine.name_link, GREEN, machine.green));
   }
 }
 
@@ -88,14 +88,17 @@ msgs::Visual LightControl::create_vis_msg(std::string machine_name, Color color,
   msgs::Visual msg;
 
   //resolve BLINK (Machines Blink at 2Hz)
-  double time = world_->GetSimTime().Double();  
-  if(fmod(time,1) >= 0.5)
+  if(state == BLINK)
   {
-    state = OFF;
-  }
-  else
-  {
-    state = ON;
+    double time = world_->GetSimTime().Double();  
+    if(fmod(time,1) >= 0.5)
+    {
+      state = OFF;
+    }
+    else
+    {
+      state = ON;
+    }
   }
   
   //common parameters

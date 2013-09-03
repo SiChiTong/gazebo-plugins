@@ -101,7 +101,7 @@ void LlsfDataTable::set_light_state(std::string machine, LightState red,
   for(int i = M1; i <= T; i++)
   {
     //is it the right machine?
-    if(machines_[i].name_as_string.find(machine) != std::string::npos)
+    if(machines_[i].name_link.find(machine) != std::string::npos)
     {
       set_light_state(machines_[i].name, red, yellow, green);
       return;
@@ -137,22 +137,22 @@ void LlsfDataTable::set_puck_in_machine_area(int puck, MachineName machine)
 
 void LlsfDataTable::init_table()
 {
-  init_machine(M1, "llsf_field::M1::machine_link");
-  init_machine(M2, "llsf_field::M2::machine_link");
-  init_machine(M3, "llsf_field::M3::machine_link");
-  init_machine(M4, "llsf_field::M4::machine_link");
-  init_machine(M5, "llsf_field::M5::machine_link");
-  init_machine(M6, "llsf_field::M6::machine_link");
-  init_machine(M7, "llsf_field::M7::machine_link");
-  init_machine(M8, "llsf_field::M8::machine_link");
-  init_machine(M9, "llsf_field::M9::machine_link");
-  init_machine(M10, "llsf_field::M10::machine_link");
-  init_machine(D1, "llsf_field::D1::machine_link");
-  init_machine(D2, "llsf_field::D2::machine_link");
-  init_machine(D3, "llsf_field::D3::machine_link");
-  init_machine(R1, "llsf_field::R1::machine_link");
-  init_machine(R2, "llsf_field::R2::machine_link");
-  init_machine(T, "llsf_field::T::machine_link");
+  init_machine(M1, "llsf_field::M1::machine_link", "M1");
+  init_machine(M2, "llsf_field::M2::machine_link", "M2");
+  init_machine(M3, "llsf_field::M3::machine_link", "M3");
+  init_machine(M4, "llsf_field::M4::machine_link", "M4");
+  init_machine(M5, "llsf_field::M5::machine_link", "M5");
+  init_machine(M6, "llsf_field::M6::machine_link", "M6");
+  init_machine(M7, "llsf_field::M7::machine_link", "M7");
+  init_machine(M8, "llsf_field::M8::machine_link", "M8");
+  init_machine(M9, "llsf_field::M9::machine_link", "M9");
+  init_machine(M10, "llsf_field::M10::machine_link", "M10");
+  init_machine(D1, "llsf_field::D1::machine_link", "D1");
+  init_machine(D2, "llsf_field::D2::machine_link", "D2");
+  init_machine(D3, "llsf_field::D3::machine_link", "D3");
+  init_machine(R1, "llsf_field::R1::machine_link", "R1");
+  init_machine(R2, "llsf_field::R2::machine_link", "R2");
+  init_machine(T, "llsf_field::T::machine_link", "TST");
 
   init_puck(0, "Puck0::cylinder");
   init_puck(1, "Puck1::cylinder");
@@ -178,13 +178,14 @@ void LlsfDataTable::init_table()
   init_puck(19, "llsf_field::Puck19::cylinder");*/
 }
 
-void LlsfDataTable::init_machine(MachineName number, std::string name)
+void LlsfDataTable::init_machine(MachineName number, std::string name_link, std::string name_string)
 {
   machines_[number].name = number;
-  machines_[number].name_as_string = name;
-  machines_[number].x = world_->GetEntity(name)->GetWorldPose().pos.x;
-  machines_[number].y = world_->GetEntity(name)->GetWorldPose().pos.y;
-  machines_[number].ori = world_->GetEntity(name)->GetWorldPose().rot.GetAsEuler().z;
+  machines_[number].name_link = name_link;
+  machines_[number].name_string = name_string;
+  machines_[number].x = world_->GetEntity(name_link)->GetWorldPose().pos.x;
+  machines_[number].y = world_->GetEntity(name_link)->GetWorldPose().pos.y;
+  machines_[number].ori = world_->GetEntity(name_link)->GetWorldPose().rot.GetAsEuler().z;
   machines_[number].red = BLINK;//OFF;
   machines_[number].yellow = BLINK;//OFF;
   machines_[number].green = BLINK;//OFF;
@@ -193,7 +194,7 @@ void LlsfDataTable::init_machine(MachineName number, std::string name)
 void LlsfDataTable::init_puck(int number, std::string name)
 {
   pucks_[number].number = number;
-  pucks_[number].name_as_string = name;
+  pucks_[number].name_link = name;
   pucks_[number].under_rfid = NONE;
   pucks_[number].in_machine_area = NONE;
 }

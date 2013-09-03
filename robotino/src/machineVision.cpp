@@ -84,7 +84,7 @@ void MachineVision::send_lights()
     //get mchine data
     Machine machine = table_->get_machine((MachineName) i);
     //set name
-    machine_signal->set_name(machine.name_as_string);
+    machine_signal->set_name(machine.name_link);
     //set lights
     llsf_msgs::LightSpec *red = machine_signal->add_lights();
     red->set_color(llsf_msgs::RED);

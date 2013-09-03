@@ -67,7 +67,8 @@ namespace gazebo
   typedef struct Machine
   {
     MachineName name;
-    std::string name_as_string;
+    std::string name_link;
+    std::string name_string;
     double x;
     double y;
     double ori;
@@ -79,7 +80,7 @@ namespace gazebo
   typedef struct Puck
   {
     int number;
-    std::string name_as_string;
+    std::string name_link;
     double x;
     double y;
     MachineName under_rfid;
@@ -141,7 +142,7 @@ namespace gazebo
     Puck pucks_[20];
 
     void init_table();
-    void init_machine(MachineName number, std::string name);
+    void init_machine(MachineName number, std::string name_, std::string name_string);
     void init_puck(int number, std::string name);
   };
 }
