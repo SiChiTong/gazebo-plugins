@@ -77,6 +77,18 @@ Machine LlsfDataTable::get_machine(MachineName name)
   return machines_[name];
 }
 
+Machine LlsfDataTable::get_machine(std::string machine)
+{
+  for(int i = M1; i <= T; i++)
+  {
+    //is it the right machine?
+    if(machines_[i].name_link.find(machine) != std::string::npos)
+    {
+      return machines_[i];
+    }
+  }
+}
+
 Machine* LlsfDataTable::get_machines()
 {
   return machines_;
@@ -152,7 +164,7 @@ void LlsfDataTable::init_table()
   init_machine(D3, "llsf_field::D3::machine_link", "D3");
   init_machine(R1, "llsf_field::R1::machine_link", "R1");
   init_machine(R2, "llsf_field::R2::machine_link", "R2");
-  init_machine(T, "llsf_field::T::machine_link", "TST");
+  init_machine(T, "llsf_field::TST::machine_link", "TST");
 
   init_puck(0, "Puck0::cylinder");
   init_puck(1, "Puck1::cylinder");

@@ -117,6 +117,7 @@ namespace gazebo
 
     //Getter
     Machine get_machine(MachineName name);
+    Machine get_machine(std::string name);
     Machine* get_machines();
     Puck get_puck(int number);
 

@@ -28,6 +28,7 @@
 #include <msgs/msgs.hh>
 #include <stdio.h>
 #include <common/common.hh>
+#include <string.h>
 
 #include "light_control.h"
 
@@ -75,6 +76,10 @@ void LightControl::update()
   {
     //the actual magic
     Machine machine = machines[i];
+    // printf("Machine %s\n", machine.name_string.c_str());
+    // printf("Red: %d\n", machine.red);
+    // printf("Yellow: %d\n", machine.yellow);
+    // printf("Green: %d\n", machine.green);
     visPub_->Publish(create_vis_msg(machine.name_link, RED, machine.red));
     visPub_->Publish(create_vis_msg(machine.name_link, YELLOW, machine.yellow));
     visPub_->Publish(create_vis_msg(machine.name_link, GREEN, machine.green));

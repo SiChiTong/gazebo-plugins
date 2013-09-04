@@ -79,6 +79,10 @@ void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)
   {
     llsf_msgs::Machine machine = msg->machines(i);
     LightState red, yellow, green;
+    //set default values
+    red = OFF;
+    yellow = OFF;
+    green = OFF;
     for(int j = 0; j < machine.lights_size(); j++)
     {
       llsf_msgs::LightSpec light_spec = machine.lights(j);
@@ -95,7 +99,7 @@ void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)
       case llsf_msgs::YELLOW: yellow = state; break;
       case llsf_msgs::GREEN: green = state; break;
       }
-      table_->set_light_state(machine.name(), red, yellow, green);
     }
+    table_->set_light_state(machine.name(), red, yellow, green);
   }
 }
