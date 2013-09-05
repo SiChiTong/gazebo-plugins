@@ -88,8 +88,8 @@ void PuckDetection::send_puck_positions()
     double rel_x = puck.x - robot_x;
     double rel_y = puck.y - robot_y;
     //apply transformation regarding robot orientation
-    double omni_x = rel_x * cos(-robot_ori) + rel_y * sin(-robot_ori);
-    double omni_y = - rel_x *sin(-robot_ori) + rel_y * cos(-robot_ori);
+    double omni_x = rel_x * cos(-robot_ori) - rel_y * sin(-robot_ori);
+    double omni_y = rel_x *sin(-robot_ori) + rel_y * cos(-robot_ori);
     pose->set_x(omni_x);
     pose->set_y(omni_y);
 

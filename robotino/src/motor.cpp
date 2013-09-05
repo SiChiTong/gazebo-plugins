@@ -73,7 +73,7 @@ void Motor::update()
 
 void Motor::on_motor_move_msg(ConstVector3dPtr &msg)
 {
-  printf("Got MotorMove Msg!!! %f %f %f\n", msg->x(), msg->y(), msg->z());
+  //printf("Got MotorMove Msg!!! %f %f %f\n", msg->x(), msg->y(), msg->z());
   //Transform relative motion into ablosulte motion
   vx_ = msg->x();
   vy_ = msg->y();
