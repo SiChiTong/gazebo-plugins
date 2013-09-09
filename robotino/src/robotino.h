@@ -26,6 +26,7 @@
 #include <transport/transport.hh>
 #include <list>
 #include "simDevice.h"
+#include <string.h>
 
 namespace gazebo
 {   
@@ -54,5 +55,8 @@ namespace gazebo
     event::ConnectionPtr update_connection_;
     //Node for communication
     transport::NodePtr node_;
+
+    //name of the robotino and the communication channel
+    std::string name_;
   };
 }

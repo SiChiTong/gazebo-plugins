@@ -65,25 +65,41 @@ void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   // Store the pointer to the model
   this->model_ = _parent;
 
+  //get the model-name
+  this->name_ = model_->GetName();
+  printf("Loading Robotino Plugin of model %s\n", name_.c_str());
+
   // Listen to the update event. This event is broadcast every
   // simulation iteration.
   this->update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&Robotino::OnUpdate, this, _1));
 
   //Init the communication Node
   this->node_ = transport::NodePtr(new transport::Node());
-  this->node_->Init();
+  if(name_ == "robotino")
+  {
+    printf("UNNAMED ROBOTINO LOADED! INITIALIZING GAZEBO NODE COMMUNUNICATION WITH DEFAULT CHANNEL \"\"!");
+    this->node_->Init();
+  }
+  else
+  {
+    this->node_->Init(name_);
+  } 
   
   //creating simulated devices
   devices_list_.push_back((SimDevice*) new MessageDisplay(model_, node_));
   devices_list_.push_back((SimDevice*) new Gyro(model_, node_));
   devices_list_.push_back((SimDevice*) new Motor(model_, node_));
   devices_list_.push_back((SimDevice*) new Gps(model_, node_));
-  devices_list_.push_back((SimDevice*) new LaserSensor(model_, node_, sensors::get_sensor("laser")));
+  std::string laser_name =  model_->GetWorld()->GetName() + "::" + name_ + "::hokuyo::link::laser";
+  devices_list_.push_back((SimDevice*) new LaserSensor(model_, node_, sensors::get_sensor(laser_name.c_str())));
   devices_list_.push_back((SimDevice*) new MachineVision(model_, node_));
   devices_list_.push_back((SimDevice*) new PuckDetection(model_, node_));
-  devices_list_.push_back((SimDevice*) new InfraredPuckSensor(model_, node_, sensors::get_sensor("infrared_puck_sensor")));
-  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor("gripper_laser_left"), LEFT));
-  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor("gripper_laser_right"), RIGHT));
+  std::string infrared_name =  model_->GetWorld()->GetName() + "::" + name_ + "::infrared_sensor::link::infrared_puck_sensor";
+  devices_list_.push_back((SimDevice*) new InfraredPuckSensor(model_, node_, sensors::get_sensor(infrared_name.c_str())));
+  std::string gripper_laser_left_name =  model_->GetWorld()->GetName() + "::" + name_ + "::body::gripper_laser_left";
+  std::string gripper_laser_right_name =  model_->GetWorld()->GetName() + "::" + name_ + "::body::gripper_laser_right";
+  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_left_name.c_str()), LEFT));
+  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_right_name.c_str()), RIGHT));
 
   //initialize and publish messages of devices (before subscribing to avoid deadlocks)
   for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
