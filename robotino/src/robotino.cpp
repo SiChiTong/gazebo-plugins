@@ -73,8 +73,14 @@ void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   // simulation iteration.
   this->update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&Robotino::OnUpdate, this, _1));
 
-  //Init the communication Node
+  //Create the communication Node for communication with fawkes
   this->node_ = transport::NodePtr(new transport::Node());
+  
+  //Create the communication node for spawning the number label
+  this->visual_node_ = transport::NodePtr(new transport::Node());
+  visual_node_->Init(model_->GetWorld()->GetName().c_str());
+  label_last_sent_ = 0.0;
+
   if(name_ == "robotino")
   {
     printf("UNNAMED ROBOTINO LOADED! INITIALIZING GAZEBO NODE COMMUNUNICATION WITH DEFAULT CHANNEL \"\"!");
@@ -107,6 +113,7 @@ void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
     (*it)->init();
     (*it)->create_publishers();
   }
+  visual_pub_ = visual_node_->Advertise<msgs::Visual>("~/visual", 1);
 
   //suscribe messages of devices
   for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
@@ -125,8 +132,44 @@ void Robotino::OnUpdate(const common::UpdateInfo & /*_info*/)
   {
     (*it)->update();
   }
+
+  double time = model_->GetWorld()->GetSimTime().Double();  
+  if(time - label_last_sent_ > 5.0)
+  {
+    spawn_label();
+    label_last_sent_ = time;
+  }
 }
 
 void Robotino::Reset()
 {
+}
+
+void Robotino::spawn_label()
+{
+  
+  //create message
+  msgs::Visual msg;
+
+  //set parameters
+  msg.set_name((name_ + "label").c_str());
+  std::string parent = model_->GetName() + "::body";
+  msg.set_parent_name(parent.c_str());//"llsf_field::M1::machine_link");
+  msgs::Geometry *geomMsg = msg.mutable_geometry();
+  geomMsg->set_type(msgs::Geometry::PLANE);
+  msgs::Set(geomMsg->mutable_plane()->mutable_normal(), math::Vector3(0.0, 0.0, 1.0));
+  msgs::Set(geomMsg->mutable_plane()->mutable_size(), math::Vector2d(0.2, 0.2));
+  msg.set_transparency(0.5);  
+  msg.set_cast_shadows(false);
+  msgs::Set(msg.mutable_pose(), math::Pose(0.00, 0.0, 0.4, 0, 0, 0));
+  
+  //find right number and set texture
+  msgs::Material::Script* script = msg.mutable_material()->mutable_script();
+  script->add_uri("model://label/materials/scripts");
+  script->add_uri("model://label/materials/textures");
+  std::string label_name = "label/" + name_;
+  script->set_name(label_name.c_str());
+
+  //Publish
+  visual_pub_->Publish(msg);
 }

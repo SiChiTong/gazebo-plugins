@@ -53,8 +53,15 @@ namespace gazebo
     physics::ModelPtr model_;
     // Pointer to the update event connection
     event::ConnectionPtr update_connection_;
-    //Node for communication
+    //Node for communication to fawkes
     transport::NodePtr node_;
+    
+    //Node for Spawning a number label
+    transport::NodePtr visual_node_;
+    //Publisher for spawning a number label
+    transport::PublisherPtr visual_pub_;
+    void spawn_label();
+    double label_last_sent_;
 
     //name of the robotino and the communication channel
     std::string name_;
