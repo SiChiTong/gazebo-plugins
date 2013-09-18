@@ -22,7 +22,7 @@
 #define _RFID_SENSORS_HH_
 
 //radius of the area in which the sensor recognizes a puck
-#define UNDER_RFID_TOL 0.015
+#define UNDER_RFID_TOL 0.02
 //distance of the rfid-sensor-center from machine-center in x-dim
 #define DIST_CENTER_RFID 0.06
 
