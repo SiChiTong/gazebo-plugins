@@ -40,6 +40,7 @@
 #include "puck_detection.h"
 #include "infraredPuckSensor.h"
 #include "gripper_laser_sensor.h"
+#include "frontCamera.h"
 
 using namespace gazebo;
 
@@ -106,6 +107,8 @@ void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   std::string gripper_laser_right_name =  model_->GetWorld()->GetName() + "::" + name_ + "::body::gripper_laser_right";
   devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_left_name.c_str()), LEFT));
   devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_right_name.c_str()), RIGHT));
+  std::string camera_name =  model_->GetWorld()->GetName() + "::" + name_ + "::webcam::link::webcam_sensor";
+  devices_list_.push_back((SimDevice*) new FrontCamera(model_, node_, sensors::get_sensor(camera_name.c_str())));
 
   //initialize and publish messages of devices (before subscribing to avoid deadlocks)
   for (std::list<SimDevice*>::iterator it = devices_list_.begin(); it != devices_list_.end(); it++)
