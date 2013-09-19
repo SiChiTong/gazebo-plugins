@@ -36,52 +36,52 @@
     <include>
       <name>Puck0</name>
       <uri>model://puck</uri>
-      <pose>0.4 2.3 0 0 0 0</pose>
+      <pose>0.35 2.35 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck1</name>
       <uri>model://puck</uri>
-      <pose>0.4 2.5 0 0 0 0</pose>
+      <pose>0.35 2.55 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck2</name>
       <uri>model://puck</uri>
-      <pose>0.4 2.7 0 0 0 0</pose>
+      <pose>0.35 2.75 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck3</name>
       <uri>model://puck</uri>
-      <pose>0.4 2.9 0 0 0 0</pose>
+      <pose>0.35 2.95 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck4</name>
       <uri>model://puck</uri>
-      <pose>0.4 3.1 0 0 0 0</pose>
+      <pose>0.35 3.15 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck5</name>
       <uri>model://puck</uri>
-      <pose>0.2 2.3 0 0 0 0</pose>
+      <pose>0.2 2.335 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck6</name>
       <uri>model://puck</uri>
-      <pose>0.2 2.5 0 0 0 0</pose>
+      <pose>0.2 2.55 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck7</name>
       <uri>model://puck</uri>
-      <pose>0.2 2.7 0 0 0 0</pose>
+      <pose>0.2 2.75 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck8</name>
       <uri>model://puck</uri>
-      <pose>0.2 2.9 0 0 0 0</pose>
+      <pose>0.2 2.95 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck9</name>
       <uri>model://puck</uri>
-      <pose>0.2 3.1 0 0 0 0</pose>
+      <pose>0.2 3.15 0 0 0 0</pose>
     </include>
     <plugin name="world" filename="libllsf_world.so" />
   </world>
