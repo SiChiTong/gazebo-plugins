@@ -10,7 +10,7 @@ LlsfWorldPlugin::LlsfWorldPlugin() : WorldPlugin()
 {
   //Init the communication Node
   this->node_ = transport::NodePtr(new transport::Node());
-  this->node_->Init();
+  this->node_->Init("LLSF");
   puck_update_frequency_ = 3.0;
 }
 
