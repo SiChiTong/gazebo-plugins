@@ -25,7 +25,7 @@
 #include "light_control.h"
 #include "puck_localization.h"
 #include "rfid_sensors.h"
-
+#include "time_sync.h"
 
 namespace gazebo
 {
@@ -61,8 +61,13 @@ namespace gazebo
     //checks if there is a puck under the rfid
     RfidSensors *rfid_sensors_;
 
+    //Sync the time with fawkes and the refbox
+    TimeSync *time_sync_;
+
     double puck_update_frequency_;
+    double time_sync_frequency_;
     double last_puck_update_;
+    double last_time_sync_;
   };
   GZ_REGISTER_WORLD_PLUGIN(LlsfWorldPlugin)
 }
