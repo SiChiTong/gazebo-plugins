@@ -12,7 +12,7 @@ LlsfWorldPlugin::LlsfWorldPlugin() : WorldPlugin()
   this->node_ = transport::NodePtr(new transport::Node());
   this->node_->Init("LLSF");
   puck_update_frequency_ = 3.0;
-  time_sync_frequency_ = 0.5;
+  time_sync_frequency_ = 4.0;
 }
 
 LlsfWorldPlugin::~LlsfWorldPlugin() 
