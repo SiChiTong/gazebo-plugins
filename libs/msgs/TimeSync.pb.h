@@ -34,6 +34,25 @@ void protobuf_ShutdownFile_TimeSync_2eproto();
 
 class TimeSync;
 
+enum TimeSync_CompType {
+  TimeSync_CompType_COMP_ID = 2000,
+  TimeSync_CompType_MSG_TYPE = 327
+};
+bool TimeSync_CompType_IsValid(int value);
+const TimeSync_CompType TimeSync_CompType_CompType_MIN = TimeSync_CompType_MSG_TYPE;
+const TimeSync_CompType TimeSync_CompType_CompType_MAX = TimeSync_CompType_COMP_ID;
+const int TimeSync_CompType_CompType_ARRAYSIZE = TimeSync_CompType_CompType_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* TimeSync_CompType_descriptor();
+inline const ::std::string& TimeSync_CompType_Name(TimeSync_CompType value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    TimeSync_CompType_descriptor(), value);
+}
+inline bool TimeSync_CompType_Parse(
+    const ::std::string& name, TimeSync_CompType* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<TimeSync_CompType>(
+    TimeSync_CompType_descriptor(), name, value);
+}
 // ===================================================================
 
 class TimeSync : public ::google::protobuf::Message {
@@ -87,6 +106,30 @@ class TimeSync : public ::google::protobuf::Message {
   ::google::protobuf::Metadata GetMetadata() const;
   
   // nested types ----------------------------------------------------
+  
+  typedef TimeSync_CompType CompType;
+  static const CompType COMP_ID = TimeSync_CompType_COMP_ID;
+  static const CompType MSG_TYPE = TimeSync_CompType_MSG_TYPE;
+  static inline bool CompType_IsValid(int value) {
+    return TimeSync_CompType_IsValid(value);
+  }
+  static const CompType CompType_MIN =
+    TimeSync_CompType_CompType_MIN;
+  static const CompType CompType_MAX =
+    TimeSync_CompType_CompType_MAX;
+  static const int CompType_ARRAYSIZE =
+    TimeSync_CompType_CompType_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  CompType_descriptor() {
+    return TimeSync_CompType_descriptor();
+  }
+  static inline const ::std::string& CompType_Name(CompType value) {
+    return TimeSync_CompType_Name(value);
+  }
+  static inline bool CompType_Parse(const ::std::string& name,
+      CompType* value) {
+    return TimeSync_CompType_Parse(name, value);
+  }
   
   // accessors -------------------------------------------------------
   
@@ -218,6 +261,10 @@ inline void TimeSync::set_paused(bool value) {
 namespace google {
 namespace protobuf {
 
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::gazsim_msgs::TimeSync_CompType>() {
+  return ::gazsim_msgs::TimeSync_CompType_descriptor();
+}
 
 }  // namespace google
 }  // namespace protobuf

@@ -8,6 +8,11 @@
 package gazsim_msgs;
 
 message TimeSync {
+  enum CompType {
+    COMP_ID  = 2000;
+    MSG_TYPE = 327;
+  }
+
   required float sim_time = 1;
   required float real_time_factor = 2;
   required bool paused = 3;

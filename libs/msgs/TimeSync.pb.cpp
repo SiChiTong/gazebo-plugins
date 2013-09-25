@@ -20,6 +20,7 @@ namespace {
 const ::google::protobuf::Descriptor* TimeSync_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   TimeSync_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* TimeSync_CompType_descriptor_ = NULL;
 
 }  // namespace
 
@@ -47,6 +48,7 @@ void protobuf_AssignDesc_TimeSync_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(TimeSync));
+  TimeSync_CompType_descriptor_ = TimeSync_descriptor_->enum_type(0);
 }
 
 namespace {
@@ -77,9 +79,10 @@ void protobuf_AddDesc_TimeSync_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\016TimeSync.proto\022\013gazsim_msgs\"F\n\010TimeSyn"
+    "\n\016TimeSync.proto\022\013gazsim_msgs\"o\n\010TimeSyn"
     "c\022\020\n\010sim_time\030\001 \002(\002\022\030\n\020real_time_factor\030"
-    "\002 \002(\002\022\016\n\006paused\030\003 \002(\010", 101);
+    "\002 \002(\002\022\016\n\006paused\030\003 \002(\010\"\'\n\010CompType\022\014\n\007COM"
+    "P_ID\020\320\017\022\r\n\010MSG_TYPE\020\307\002", 142);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "TimeSync.proto", &protobuf_RegisterTypes);
   TimeSync::default_instance_ = new TimeSync();
@@ -97,6 +100,27 @@ struct StaticDescriptorInitializer_TimeSync_2eproto {
 
 // ===================================================================
 
+const ::google::protobuf::EnumDescriptor* TimeSync_CompType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return TimeSync_CompType_descriptor_;
+}
+bool TimeSync_CompType_IsValid(int value) {
+  switch(value) {
+    case 327:
+    case 2000:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#ifndef _MSC_VER
+const TimeSync_CompType TimeSync::COMP_ID;
+const TimeSync_CompType TimeSync::MSG_TYPE;
+const TimeSync_CompType TimeSync::CompType_MIN;
+const TimeSync_CompType TimeSync::CompType_MAX;
+const int TimeSync::CompType_ARRAYSIZE;
+#endif  // _MSC_VER
 #ifndef _MSC_VER
 const int TimeSync::kSimTimeFieldNumber;
 const int TimeSync::kRealTimeFactorFieldNumber;
