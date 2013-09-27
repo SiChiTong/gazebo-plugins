@@ -43,6 +43,7 @@ LightControl::LightControl(physics::WorldPtr world)
   node_->Init(world_->GetName().c_str());
   visPub_ = this->node_->Advertise<msgs::Visual>("~/visual", NUMBER_MACHINES * 3);
   table_ = LlsfDataTable::get_table();
+  last_sent_time_ = world_->GetSimTime().Double();
 }
 LightControl::~LightControl()
 {
@@ -54,7 +55,7 @@ void LightControl::update()
 {  
   /* Visuals in Gazebo can be modified by publishing a Visual msg
      on the ~/visual topic (node has to be inited with the worlds name) 
-  x   However the messages do not override visuals defined in the sdf. */
+     However the messages do not override visuals defined in the sdf. */
   
   //update lights twice a second
   double time = world_->GetSimTime().Double();
