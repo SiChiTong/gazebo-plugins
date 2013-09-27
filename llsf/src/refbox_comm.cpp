@@ -29,6 +29,7 @@
 
 #include "../../libs/msgs/MachineCommands.pb.h"
 #include "../../libs/msgs/MachineInfo.pb.h"
+#include "../../libs/msgs/PuckInfo.pb.h"
 
 using namespace gazebo;
 
@@ -43,6 +44,7 @@ RefboxComm::RefboxComm(LlsfDataTable *table, transport::NodePtr gazebo_node)
 
   //create subscriber
   this->machine_info_sub_ = gazebo_node_->Subscribe(std::string("~/LLSFRbSim/MachineInfo/"), &RefboxComm::on_machine_info_msg, this);
+  this->puck_info_sub_ = gazebo_node_->Subscribe(std::string("~/LLSFRbSim/PuckInfo/"), &RefboxComm::on_puck_info_msg, this);
 }
 
 RefboxComm::~RefboxComm()
@@ -73,7 +75,7 @@ void RefboxComm::send_remove_puck_from_machine(int puck, Machine & machine)
 
 void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)
 {
-  // printf("Got MachineInfo :D\n");  
+  //printf("Got MachineInfo :D\n");  
   //read all machines and set light signals
   for(int i = 0; i < msg->machines_size(); i++)
   {
@@ -101,5 +103,16 @@ void RefboxComm::on_machine_info_msg(ConstMachineInfoPtr &msg)
       }
     }
     table_->set_light_state(machine.name(), red, yellow, green);
+  }
+}
+
+void RefboxComm::on_puck_info_msg(ConstPuckInfoPtr &msg)
+{
+  //printf("Got PuckInfo\n");  
+  for(int i = 0; i < msg->pucks_size(); i++)
+  {
+    llsf_msgs::Puck puck = msg->pucks(i);
+    int id = puck.id() - 1;//-1 because the refbox starts with 1
+    table_->set_puck_state(id, puck.state());
   }
 }

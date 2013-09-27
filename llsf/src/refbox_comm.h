@@ -34,6 +34,7 @@
 
 
 typedef const boost::shared_ptr<llsf_msgs::MachineInfo const> ConstMachineInfoPtr;
+typedef const boost::shared_ptr<llsf_msgs::PuckInfo const> ConstPuckInfoPtr;
 
 namespace gazebo
 {
@@ -73,8 +74,10 @@ namespace gazebo
 
     //Suscriber for MachineInfos from the refbox
     transport::SubscriberPtr machine_info_sub_;
+    transport::SubscriberPtr puck_info_sub_;
 
     void on_machine_info_msg(ConstMachineInfoPtr &msg);
+    void on_puck_info_msg(ConstPuckInfoPtr &msg);
   };
 }
 #endif

@@ -26,6 +26,7 @@
 
 #include "refbox_comm.h"
 #include <string.h>
+#include "../../libs/msgs/PuckInfo.pb.h"
 
 
 #define NUMBER_MACHINES 16
@@ -85,7 +86,7 @@ namespace gazebo
     double y;
     MachineName under_rfid;
     MachineName in_machine_area;
-    
+    llsf_msgs::PuckState state;
   } Puck;
 
   /**
@@ -130,6 +131,7 @@ namespace gazebo
     void set_puck_under_rfid(int puck, MachineName machine);
     void remove_puck_under_rfid(int puck, MachineName machine);
     void set_puck_in_machine_area(int puck, MachineName machine);
+    void set_puck_state(int puck, llsf_msgs::PuckState state);
 
   private:
     //Provides communication to the refbox

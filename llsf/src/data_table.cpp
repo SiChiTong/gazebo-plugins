@@ -147,6 +147,11 @@ void LlsfDataTable::set_puck_in_machine_area(int puck, MachineName machine)
   //TODO: inform refbox if a puck leaves a machine area
 }
 
+void LlsfDataTable::set_puck_state(int puck, llsf_msgs::PuckState state)
+{
+  pucks_[puck].state = state;
+}
+
 void LlsfDataTable::init_table()
 {
   init_machine(M1, "llsf_field::M1::machine_link", "M1");
@@ -209,4 +214,5 @@ void LlsfDataTable::init_puck(int number, std::string name)
   pucks_[number].name_link = name;
   pucks_[number].under_rfid = NONE;
   pucks_[number].in_machine_area = NONE;
+  pucks_[number].state = llsf_msgs::S0;
 }

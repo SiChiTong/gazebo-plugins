@@ -26,6 +26,7 @@
 #include "puck_localization.h"
 #include "rfid_sensors.h"
 #include "time_sync.h"
+#include "field_referee.h"
 
 namespace gazebo
 {
@@ -57,6 +58,9 @@ namespace gazebo
     LightControl *light_control_;
 
     PuckLocalization *puck_localization_;
+
+    //the field referee removes finished pucks
+    FieldReferee *field_referee_;
     
     //checks if there is a puck under the rfid
     RfidSensors *rfid_sensors_;
