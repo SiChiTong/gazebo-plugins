@@ -74,10 +74,10 @@ void Gps::send_position()
     posMsg.mutable_position()->set_x(this->model->GetWorldPose().pos.x);
     posMsg.mutable_position()->set_y(this->model->GetWorldPose().pos.y);
     posMsg.mutable_position()->set_z(this->model->GetWorldPose().pos.z);
-    posMsg.mutable_orientation()->set_x(this->model->GetWorldPose().rot.GetAsEuler().x);
-    posMsg.mutable_orientation()->set_y(this->model->GetWorldPose().rot.GetAsEuler().y);
-    posMsg.mutable_orientation()->set_z(this->model->GetWorldPose().rot.GetAsEuler().z);
-    posMsg.mutable_orientation()->set_w(0);
+    posMsg.mutable_orientation()->set_x(this->model->GetWorldPose().rot.x);
+    posMsg.mutable_orientation()->set_y(this->model->GetWorldPose().rot.y);
+    posMsg.mutable_orientation()->set_z(this->model->GetWorldPose().rot.z);
+    posMsg.mutable_orientation()->set_w(this->model->GetWorldPose().rot.w);
 
     //send
     gps_pub_->Publish(posMsg);
