@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <transport/transport.hh>
 #include <physics/physics.hh>
-#include "../../libs/msgs/TimeSync.pb.h"
+#include "../../libs/msgs/SimTimeSync.pb.h"
 
 
 namespace gazebo
