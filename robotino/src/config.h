@@ -27,3 +27,6 @@
 //laser send frequency defined in hokuyo/model.sdf
 #define PUCK_DETECTION_SEND_FREQUENCY 1.0
 #define FRONT_CAMERA_SEND_FREQUENCY 2.0
+
+#define ATTACH_PUCK_TO_GRIPPER_WHEN_TURNING true
+#define DISTANCE_GRIPPER_CENTER_ROBOTINO 0.24
