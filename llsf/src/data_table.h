@@ -30,7 +30,7 @@
 
 
 #define NUMBER_MACHINES 16
-#define NUMBER_PUCKS 10
+#define NUMBER_PUCKS 20
 
 namespace gazebo
 {

@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <transport/transport.hh>
 #include <stddef.h>
+#include <sstream>
 
 #include "data_table.h"
 #include "refbox_comm.h"
@@ -171,28 +172,12 @@ void LlsfDataTable::init_table()
   init_machine(R2, "llsf_field::R2::machine_link", "R2");
   init_machine(T, "llsf_field::TST::machine_link", "TST");
 
-  init_puck(0, "Puck0::cylinder");
-  init_puck(1, "Puck1::cylinder");
-  init_puck(2, "Puck2::cylinder");
-  init_puck(3, "Puck3::cylinder");
-  init_puck(4, "Puck4::cylinder");
-  init_puck(5, "Puck5::cylinder");
-  init_puck(6, "Puck6::cylinder");
-  init_puck(7, "Puck7::cylinder");
-  init_puck(8, "Puck8::cylinder");
-  init_puck(9, "Puck9::cylinder");
-  /*
-    CURRENTLY NOT IN THE SIMULATION
-  init_puck(10, "llsf_field::Puck10::cylinder");
-  init_puck(11, "llsf_field::Puck11::cylinder");
-  init_puck(12, "llsf_field::Puck12::cylinder");
-  init_puck(13, "llsf_field::Puck13::cylinder");
-  init_puck(14, "llsf_field::Puck14::cylinder");
-  init_puck(15, "llsf_field::Puck15::cylinder");
-  init_puck(16, "llsf_field::Puck16::cylinder");
-  init_puck(17, "llsf_field::Puck17::cylinder");
-  init_puck(18, "llsf_field::Puck18::cylinder");
-  init_puck(19, "llsf_field::Puck19::cylinder");*/
+  for(int i = 0; i < NUMBER_PUCKS; i++)
+  {
+    std::ostringstream ss;
+    ss << "Puck" << i << "::cylinder";
+    init_puck(i, ss.str().c_str());
+  }
 }
 
 void LlsfDataTable::init_machine(MachineName number, std::string name_link, std::string name_string)
