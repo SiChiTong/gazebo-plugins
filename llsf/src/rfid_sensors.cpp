@@ -53,15 +53,12 @@ void RfidSensors::update()
 			 + (puck.y - rfid_y) * (puck.y - rfid_y));
       if(dist < UNDER_RFID_TOL)
       {
-	if(puck.under_rfid != machine.name)
+	//printf("Puck %d is under %s\n", p, machine.name_link.c_str());
+	if(puck.under_rfid != NONE && puck.under_rfid != machine.name)
 	{
-	  //printf("Puck %d is under %s\n", p, machine.name_link.c_str());
-	  if(puck.under_rfid != NONE)
-	  {
-	    table_->remove_puck_under_rfid(p, puck.under_rfid);
-	  }
-	  table_->set_puck_under_rfid(p, machine.name);
+	  table_->remove_puck_under_rfid(p, puck.under_rfid);
 	}
+	table_->set_puck_under_rfid(p, machine.name);
       }
       else if (puck.under_rfid == machine.name)
       {
