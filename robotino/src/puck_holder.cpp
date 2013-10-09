@@ -71,15 +71,22 @@ void PuckHolder::update()
     if(!puck_attached_)
     {
       //is a puck inside the gripper?
+      Puck closest;
+      float min_dist = 100;
       for(int p = 0; p < NUMBER_PUCKS; p++)
       {
 	Puck puck = table_->get_puck(p);
 	double distance = sqrt((puck.x - center_x) * (puck.x - center_x) + (puck.y - center_y) * (puck.y - center_y));
-	if(distance < 0.06)
+	if(distance < min_dist)
 	{
-	  puck_model_ = model->GetWorld()->GetEntity(puck.name_link.c_str())->GetParentModel();
-	  puck_attached_ = true;
+	  min_dist = distance;
+	  closest = puck;
 	}
+      }
+      if(min_dist < 0.06)
+      {
+	puck_model_ = model->GetWorld()->GetEntity(closest.name_link.c_str())->GetParentModel();
+	puck_attached_ = true;
       }
     }
     else
