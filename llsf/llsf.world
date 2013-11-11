@@ -25,103 +25,147 @@
     <include>
       <name>Puck0</name>
       <uri>model://puck_red</uri>
-      <pose>0.37 2.35 0 0 0 0</pose>
+      <pose>2 -1.0 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck1</name>
       <uri>model://puck_green</uri>
-      <pose>0.37 2.50 0 0 0 0</pose>
+      <pose>2 -1.3 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck2</name>
       <uri>model://puck_blue</uri>
-      <pose>0.37 2.65 0 0 0 0</pose>
+      <pose>2 -1.6 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck3</name>
       <uri>model://puck_red</uri>
-      <pose>0.37 2.80 0 0 0 0</pose>
+      <pose>2.2 -1.0 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck4</name>
       <uri>model://puck_green</uri>
-      <pose>0.37 2.95 0 0 0 0</pose>
+      <pose>2.2 -1.3 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck5</name>
       <uri>model://puck_blue</uri>
-      <pose>0.37 3.10 0 0 0 0</pose>
+      <pose>2.2 -1.6 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck6</name>
       <uri>model://puck_red</uri>
-      <pose>0.37 3.25 0 0 0 0</pose>
+      <pose>2.4 -1.0 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck7</name>
       <uri>model://puck_green</uri>
-      <pose>0.2 2.35 0 0 0 0</pose>
+      <pose>2.4 -1.3 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck8</name>
       <uri>model://puck_blue</uri>
-      <pose>0.2 2.50 0 0 0 0</pose>
+      <pose>2.4 -1.6 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck9</name>
       <uri>model://puck_red</uri>
-      <pose>0.2 2.65 0 0 0 0</pose>
+      <pose>2.6 -1.0 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck10</name>
       <uri>model://puck_green</uri>
-      <pose>0.2 2.80 0 0 0 0</pose>
+      <pose>2.6 -1.3 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck11</name>
       <uri>model://puck_blue</uri>
-      <pose>0.2 2.95 0 0 0 0</pose>
+      <pose>2.6 -1.6 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck12</name>
       <uri>model://puck_red</uri>
-      <pose>0.2 3.10 0 0 0 0</pose>
+      <pose>2.8 -1.0 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck13</name>
       <uri>model://puck_green</uri>
-      <pose>0.2 3.25 0 0 0 0</pose>
+      <pose>2.8 -1.3 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck14</name>
       <uri>model://puck_blue</uri>
-      <pose>0.07 2.35 0 0 0 0</pose>
+      <pose>2.8 -1.6 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck15</name>
       <uri>model://puck_red</uri>
-      <pose>0.07 2.50 0 0 0 0</pose>
+      <pose>3 -1.0 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck16</name>
       <uri>model://puck_green</uri>
-      <pose>0.07 2.65 0 0 0 0</pose>
+      <pose>3 -1.3 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck17</name>
       <uri>model://puck_blue</uri>
-      <pose>0.07 2.80 0 0 0 0</pose>
+      <pose>3 -1.6 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck18</name>
       <uri>model://puck_red</uri>
-      <pose>0.07 2.95 0 0 0 0</pose>
+      <pose>3.2 -1.0 0 0 0 0</pose>
     </include>
     <include>
       <name>Puck19</name>
       <uri>model://puck_green</uri>
-      <pose>0.07 3.10 0 0 0 0</pose>
+      <pose>3.2 -1.3 0 0 0 0</pose>
     </include>
+
+    <!-- Obstacles -->
+    <include>
+      <name>Obstacle_cinder_block0</name>
+      <uri>model://cinder_block</uri>
+      <pose>0.0 -0.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>Obstacle_cinder_block1</name>
+      <uri>model://cinder_block</uri>
+      <pose>1.0 -0.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>Obstacle_cinder_block2</name>
+      <uri>model://cinder_block</uri>
+      <pose>0.0 -1.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>Obstacle_cinder_block3</name>
+      <uri>model://cinder_block</uri>
+      <pose>1.0 -1.0 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>Obstacle_beer0</name>
+      <uri>model://beer</uri>
+      <pose>0.0 -1.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>Obstacle_beer1</name>
+      <uri>model://beer</uri>
+      <pose>0.3 -1.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>Obstacle_beer2</name>
+      <uri>model://beer</uri>
+      <pose>0.6 -1.5 0 0 0 0</pose>
+    </include>
+    <include>
+      <name>Obstacle_beer3</name>
+      <uri>model://beer</uri>
+      <pose>0.9 -1.5 0 0 0 0</pose>
+    </include>
+
+
     <plugin name="world" filename="libllsf_world.so" />
   </world>
 </sdf>
