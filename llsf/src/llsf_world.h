@@ -27,6 +27,7 @@
 #include "rfid_sensors.h"
 #include "time_sync.h"
 #include "field_referee.h"
+#include "simulation_control.h"
 
 namespace gazebo
 {
@@ -67,6 +68,9 @@ namespace gazebo
 
     //Sync the time with fawkes and the refbox
     TimeSync *time_sync_;
+
+    //Stop gazebo on request
+    SimulationControl *simulation_control_;
 
     double puck_update_frequency_;
     double time_sync_frequency_;

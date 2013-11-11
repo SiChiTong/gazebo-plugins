@@ -22,6 +22,7 @@ LlsfWorldPlugin::~LlsfWorldPlugin()
   delete rfid_sensors_;
   delete time_sync_;
   delete field_referee_;
+  delete simulation_control_;
 }
 
 void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
@@ -38,6 +39,7 @@ void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
   rfid_sensors_ = new RfidSensors();
   time_sync_ = new TimeSync(world_, node_);
   field_referee_ = new FieldReferee(world_);
+  simulation_control_ = new SimulationControl(world_, node_);
 
   //connect update function
   update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&LlsfWorldPlugin::Update, this));
