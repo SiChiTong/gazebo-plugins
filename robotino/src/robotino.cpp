@@ -101,14 +101,14 @@ void Robotino::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
   devices_list_.push_back((SimDevice*) new Gps(model_, node_));
   std::string laser_name =  model_->GetWorld()->GetName() + "::" + name_ + "::hokuyo::link::laser";
   devices_list_.push_back((SimDevice*) new LaserSensor(model_, node_, sensors::get_sensor(laser_name.c_str())));
-  devices_list_.push_back((SimDevice*) new MachineVision(model_, node_));
+  //devices_list_.push_back((SimDevice*) new MachineVision(model_, node_));
   devices_list_.push_back((SimDevice*) new PuckDetection(model_, node_));
   std::string infrared_name =  model_->GetWorld()->GetName() + "::" + name_ + "::infrared_sensor::link::infrared_puck_sensor";
   devices_list_.push_back((SimDevice*) new InfraredPuckSensor(model_, node_, sensors::get_sensor(infrared_name.c_str())));
-  std::string gripper_laser_left_name =  model_->GetWorld()->GetName() + "::" + name_ + "::body::gripper_laser_left";
-  std::string gripper_laser_right_name =  model_->GetWorld()->GetName() + "::" + name_ + "::body::gripper_laser_right";
-  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_left_name.c_str()), LEFT));
-  devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_right_name.c_str()), RIGHT));
+  // std::string gripper_laser_left_name =  model_->GetWorld()->GetName() + "::" + name_ + "::body::gripper_laser_left";
+  // std::string gripper_laser_right_name =  model_->GetWorld()->GetName() + "::" + name_ + "::body::gripper_laser_right";
+  //devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_left_name.c_str()), LEFT));
+  //devices_list_.push_back((SimDevice*) new GripperLaserSensor(model_, node_, sensors::get_sensor(gripper_laser_right_name.c_str()), RIGHT));
   std::string camera_name =  model_->GetWorld()->GetName() + "::" + name_ + "::webcam::link::webcam_sensor";
   devices_list_.push_back((SimDevice*) new FrontCamera(model_, node_, sensors::get_sensor(camera_name.c_str())));
   if(ATTACH_PUCK_TO_GRIPPER_WHEN_TURNING)

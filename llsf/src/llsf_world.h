@@ -56,21 +56,21 @@ namespace gazebo
     LlsfDataTable *table_;
 
     //Controller of machine light signals
-    LightControl *light_control_;
+    //LightControl *light_control_;
 
     PuckLocalization *puck_localization_;
 
     //the field referee removes finished pucks
-    FieldReferee *field_referee_;
+    //FieldReferee *field_referee_;
     
     //checks if there is a puck under the rfid
-    RfidSensors *rfid_sensors_;
+    //RfidSensors *rfid_sensors_;
 
     //Sync the time with fawkes and the refbox
     TimeSync *time_sync_;
 
     //Stop gazebo on request
-    SimulationControl *simulation_control_;
+    //SimulationControl *simulation_control_;
 
     double puck_update_frequency_;
     double time_sync_frequency_;

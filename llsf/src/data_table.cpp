@@ -155,22 +155,22 @@ void LlsfDataTable::set_puck_state(int puck, llsf_msgs::PuckState state)
 
 void LlsfDataTable::init_table()
 {
-  init_machine(M1, "llsf_field::M1::machine_link", "M1");
-  init_machine(M2, "llsf_field::M2::machine_link", "M2");
-  init_machine(M3, "llsf_field::M3::machine_link", "M3");
-  init_machine(M4, "llsf_field::M4::machine_link", "M4");
-  init_machine(M5, "llsf_field::M5::machine_link", "M5");
-  init_machine(M6, "llsf_field::M6::machine_link", "M6");
-  init_machine(M7, "llsf_field::M7::machine_link", "M7");
-  init_machine(M8, "llsf_field::M8::machine_link", "M8");
-  init_machine(M9, "llsf_field::M9::machine_link", "M9");
-  init_machine(M10, "llsf_field::M10::machine_link", "M10");
-  init_machine(D1, "llsf_field::D1::machine_link", "D1");
-  init_machine(D2, "llsf_field::D2::machine_link", "D2");
-  init_machine(D3, "llsf_field::D3::machine_link", "D3");
-  init_machine(R1, "llsf_field::R1::machine_link", "R1");
-  init_machine(R2, "llsf_field::R2::machine_link", "R2");
-  init_machine(T, "llsf_field::TST::machine_link", "TST");
+  // init_machine(M1, "llsf_field::M1::machine_link", "M1");
+  // init_machine(M2, "llsf_field::M2::machine_link", "M2");
+  // init_machine(M3, "llsf_field::M3::machine_link", "M3");
+  // init_machine(M4, "llsf_field::M4::machine_link", "M4");
+  // init_machine(M5, "llsf_field::M5::machine_link", "M5");
+  // init_machine(M6, "llsf_field::M6::machine_link", "M6");
+  // init_machine(M7, "llsf_field::M7::machine_link", "M7");
+  // init_machine(M8, "llsf_field::M8::machine_link", "M8");
+  // init_machine(M9, "llsf_field::M9::machine_link", "M9");
+  // init_machine(M10, "llsf_field::M10::machine_link", "M10");
+  // init_machine(D1, "llsf_field::D1::machine_link", "D1");
+  // init_machine(D2, "llsf_field::D2::machine_link", "D2");
+  // init_machine(D3, "llsf_field::D3::machine_link", "D3");
+  // init_machine(R1, "llsf_field::R1::machine_link", "R1");
+  // init_machine(R2, "llsf_field::R2::machine_link", "R2");
+  // init_machine(T, "llsf_field::TST::machine_link", "TST");
 
   for(int i = 0; i < NUMBER_PUCKS; i++)
   {

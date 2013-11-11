@@ -17,12 +17,12 @@ LlsfWorldPlugin::LlsfWorldPlugin() : WorldPlugin()
 
 LlsfWorldPlugin::~LlsfWorldPlugin() 
 {
-  delete light_control_;
+  //delete light_control_;
   delete puck_localization_;
-  delete rfid_sensors_;
+  //delete rfid_sensors_;
   delete time_sync_;
-  delete field_referee_;
-  delete simulation_control_;
+  //delete field_referee_;
+  //delete simulation_control_;
 }
 
 void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
@@ -34,12 +34,12 @@ void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
   table_ = LlsfDataTable::get_table();
 
   //has to be created after the table
-  light_control_ = new LightControl(world_);
+  //light_control_ = new LightControl(world_);
   puck_localization_ = new PuckLocalization(world_);
-  rfid_sensors_ = new RfidSensors();
+  //rfid_sensors_ = new RfidSensors();
   time_sync_ = new TimeSync(world_, node_);
-  field_referee_ = new FieldReferee(world_);
-  simulation_control_ = new SimulationControl(world_, node_);
+  //field_referee_ = new FieldReferee(world_);
+  //simulation_control_ = new SimulationControl(world_, node_);
 
   //connect update function
   update_connection_ = event::Events::ConnectWorldUpdateBegin(boost::bind(&LlsfWorldPlugin::Update, this));
@@ -49,13 +49,13 @@ void LlsfWorldPlugin::Load(physics::WorldPtr _world, sdf::ElementPtr _sdf)
 void LlsfWorldPlugin::Update()
 {
   double time = world_->GetSimTime().Double();
-  light_control_->update();
+  //light_control_->update();
   if((time - last_puck_update_) > (1.0 / puck_update_frequency_))
   {
     last_puck_update_ = time;
     puck_localization_->update();
-    rfid_sensors_->update();
-    field_referee_->update();
+    //rfid_sensors_->update();
+    //field_referee_->update();
   }
   if((time - last_time_sync_) > (1.0 / time_sync_frequency_))
   {
